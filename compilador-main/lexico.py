@@ -1,7 +1,6 @@
 import ply.lex as lex
 
-data = '''5'''
-
+data = '''int'''
 
 #ANALISADOR LEXICO
 # Definindo os tokens
@@ -36,7 +35,7 @@ tokens = [
     'GREATER', 'LESS', 'EQUAL', 'NOT', 'LBRACE', 'ELLIPSIS', 'RBRACE', 'AND', 'OR', 'MODULO', 'EMPTY', 'MAIOR', 'MENOR',
     # Comentário
     'SINGLE_LINE_COMMENT',
-    'MULTI_LINE_COMMENT'
+    'MULTI_LINE_COMMENT',
 ] + list(reserved.values())
 
 # Expressões regulares para cada token
@@ -92,7 +91,7 @@ keywords = {
 # Expressões regulares para identificadores e palavras-chave
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9]*'
-    t.type = keywords.get(t.value, 'ID') #SE t.value está em keyword, o tipo do token é atualizado, se não o tipo do token é mantido como 'ID'.
+    t.type = reserved.get(t.value, 'ID') #SE t.value está em keyword, o tipo do token é atualizado, se não o tipo do token é mantido como 'ID'.
     return t
 
 # Expressões regulares para números

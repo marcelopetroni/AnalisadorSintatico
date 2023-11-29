@@ -7,6 +7,10 @@ from lexico import *
 # from lexer import tokens
 
 # Regras da gramática
+precedence = (
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE', 'MODULO'),
+)
 
 # 1º Regra: programa
 def p_program(p):
@@ -94,15 +98,7 @@ def p_atribuicao(p):
                   | ID DIVIDE EQUAL expression
                   | ID MODULO EQUAL expression
                   | ID AND EQUAL expression
-                  | ID OR EQUAL expression
-                  | ID EQUAL ID
-                  | ID PLUS EQUAL ID
-                  | ID MINUS EQUAL ID
-                  | ID TIMES EQUAL ID
-                  | ID DIVIDE EQUAL ID
-                  | ID MODULO EQUAL ID
-                  | ID AND EQUAL ID
-                  | ID OR EQUAL ID'''
+                  | ID OR EQUAL expression'''
     if len(p) == 4:
         p[0] = ('ATRIBUICAO', p[1], p[2], p[3])
     else: 
@@ -198,7 +194,7 @@ def p_expressao_logica(p):
         p[0] = p[1]
     elif len(p) == 3:
         p[0] = ('NOT', p[2])
-    elif len(p) == 4:
+    else:
         p[0] = (p[1], p[2], p[3])
 
 # Expressão relacional
@@ -212,7 +208,7 @@ def p_expressao_relacional(p):
                              | expressao_aritmetica EQUAL EQUAL expressao_aritmetica'''
     if len(p) == 2:
         p[0] = p[1]
-    elif len(p) == 3:
+    elif len(p) == 4:
         p[0] = (p[1], p[2], p[3])
     else:
         p[0] = (p[1], p[2], p[3], p[4])
@@ -255,7 +251,7 @@ def p_expressao_unaria(p):
     if len(p) == 2:
         p[0] = p[1]
     elif len(p) == 3:
-        p[0] = (p[1], p[2], p[3])
+        p[0] = (p[1], p[2])
     else: 
         p[0] = (p[1], p[2], p[3])
 
@@ -283,7 +279,7 @@ def p_argumentos(p):
 
 # Primaria
 def p_primaria(p):
-    '''primaria :  ID
+    '''primaria : ID
                 | NUMERO
                 | VSTRING
                 | LPAREN expression RPAREN'''
@@ -295,12 +291,19 @@ def p_primaria(p):
     else:
         p[0] = p[2]
 
+# ERRO
+def p_error(p):
+    print(f"Erro de sintaxe: Token inesperado '{p.value}' linha {p.lineno}")
+    raise Exception("Erro de sintaxe")
+
 print('\n_____________ANALISADOR SINTATICO____________\n')
 
 #Cria o sintatico
 parser = yacc.yacc()
+
 try:
     result = parser.parse(data, lexer=lexer)
+    print('Não foi encontrado nenhum erro.')
     
 except Exception as e:
     print('Não foi possivel construir árvore sintática.')
