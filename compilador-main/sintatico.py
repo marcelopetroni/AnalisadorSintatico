@@ -1,7 +1,6 @@
 import ply.yacc as yacc
 from lexico import *
 
-
 #ANALISADOR SINTATICO:
 
 # Lista de tokens definida anteriormente
@@ -71,7 +70,7 @@ def p_parameter(p):
 
 # 6º Regra: Bloco
 def p_block(p):
-    '''block : LBRACE declarations RBRACE'''
+    '''block : LBRACE declaration RBRACE'''
     p[0] = ('BLOCK', p[2])
 
 # 7º Regra: Comentário
@@ -82,7 +81,9 @@ def p_comment(p):
 
 # 8ª Regra: Expressões
 def p_expression(p):
-    '''expression : atribuicao'''
+    '''expression : atribuicao
+                  | expressao_logica'''
+    p[0] = p[1]
 
 # Regras para Atribuição
 def p_atribuicao(p):
@@ -116,6 +117,8 @@ def p_declaration_structure(p):
                         | break_structure
                         | continue_structure
                         | return_structure'''
+    p[0] = p[1]
+    
 # Regras para if
 def p_if_structure(p):
     '''if_structure : IF LPAREN expression RPAREN block
@@ -176,11 +179,6 @@ def p_case_declaration(p):
     else:
         p[0] = ('DEFAULT', p[3])
 
-# 10º regra: Declaração de estrutura
-def p_declaration_structure(p):
-    '''declaration_structure : STRUCT ID LBRACE p_declaration_variable RBRACE'''
-    p[0] = ('STRUCT_DECLARATION', p[2], p[4])
-
 # 11º regra: Arrays
 def p_array(p):
     '''array : ID LBRACKETS expression RBRACKETS
@@ -189,10 +187,6 @@ def p_array(p):
         p[0] = ('ARRAY', p[1], p[3])
     else:
         p[0] = ('ARRAY', p[1])
-
-# 12º regra: expressões
-def p_expression(p):
-    '''expression: expressao_logica'''
 
 # Expressão lógica
 def p_expressao_logica(p):
@@ -205,36 +199,108 @@ def p_expressao_logica(p):
     elif len(p) == 3:
         p[0] = ('NOT', p[2])
     elif len(p) == 4:
-        p[0] = (p[1], 'AND', p[3])
-    else:
-        p[0] = (p[1], 'OR', p[3])
-        
-def p_expressao_relacional(p):
-    '''expressao_relacional : expressao_aritmetica
-                             | expressao_relacional MAIOR expressao_aritmetica
-                             | expressao_relacional MAIOR_IGUAL expressao_aritmetica
-                             | expressao_relacional MENOR expressao_aritmetica
-                             | expressao_relacional MENOR_IGUAL expressao_aritmetica
-                             | expressao_relacional DIFERENTE expressao_aritmetica
-                             | expressao_relacional IGUAL expressao_aritmetica'''
-    if len(p) == 2:
-        p[0] = p[1]
-    else:
         p[0] = (p[1], p[2], p[3])
 
+# Expressão relacional
+def p_expressao_relacional(p):
+    '''expressao_relacional : expressao_aritmetica
+                             | expressao_aritmetica MAIOR expressao_aritmetica
+                             | expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+                             | expressao_aritmetica MENOR expressao_aritmetica
+                             | expressao_aritmetica MENOR EQUAL expressao_aritmetica
+                             | expressao_aritmetica NOT EQUAL expressao_aritmetica
+                             | expressao_aritmetica EQUAL EQUAL expressao_aritmetica'''
+    if len(p) == 2:
+        p[0] = p[1]
+    elif len(p) == 3:
+        p[0] = (p[1], p[2], p[3])
+    else:
+        p[0] = (p[1], p[2], p[3], p[4])
+
+# Expressão aritmetica
+def p_expressao_aritmetica(p):
+    '''expressao_aritmetica : expressao_multiplicativa
+                             | expressao_aritmetica PLUS expressao_multiplicativa
+                             | expressao_aritmetica MINUS expressao_multiplicativa
+                             | expressao_aritmetica PLUS expressao_aritmetica
+                             | expressao_aritmetica MINUS expressao_aritmetica'''
+    if len(p) == 2:
+        p[0] = p[1]
+    elif p[2] == '+':
+        p[0] = (p[1], p[2], p[3])
+    elif p[2] == '-':
+        p[0] = (p[1], p[2], p[3])
+
+# Expressão multiplicativa
+def p_expressao_multiplicativa(p):
+    '''expressao_multiplicativa : expressao_unaria
+                                 | expressao_multiplicativa TIMES expressao_unaria
+                                 | expressao_multiplicativa DIVIDE expressao_unaria
+                                 | expressao_multiplicativa MODULO expressao_unaria '''
+    if len(p) == 2:
+        p[0] = p[1]
+    elif p[2] == 'TIMES':
+        p[0] = (p[1], 'TIMES', p[3])
+    elif p[2] == 'DIVIDE':
+        p[0] = (p[1], 'DIVIDE', p[3])
+    elif p[2] == 'MODULO':
+        p[0] = (p[1], 'MODULO', p[3])
+
+# Expressão unaria
+def p_expressao_unaria(p):
+    '''expressao_unaria : expressao_postfix
+                        | MINUS expressao_unaria
+                        | PLUS PLUS expressao_postfix
+                        | MINUS MINUS expressao_postfix'''
+    if len(p) == 2:
+        p[0] = p[1]
+    elif len(p) == 3:
+        p[0] = (p[1], p[2], p[3])
+    else: 
+        p[0] = (p[1], p[2], p[3])
+
+# Expressão postfix
+def p_expressao_postfix(p):
+    '''expressao_postfix : primaria
+                         | primaria LBRACKETS expression RBRACKETS
+                         | primaria LPAREN argumentos RPAREN
+                         | primaria DOT ID '''
+    if len(p) == 2:
+        p[0] = p[1]
+    elif len(p) == 4:
+        p[0] = (p[1])
+    else:
+        p[0] = (p[1], p[3])
+
+# Expressão argumentos
+def p_argumentos(p):
+    '''argumentos : array
+                  | empty'''
+    if p[1] is not None:
+        p[0] = p[1]
+    else:
+        p[0] = []
+
+# Primaria
+def p_primaria(p):
+    '''primaria :  ID
+                | NUMERO
+                | VSTRING
+                | LPAREN expression RPAREN'''
+    if len(p) == 2:
+        if p[1].type == 'ID':
+            p[0] = ('ID', p[1])
+        else:
+            p[0] = (p[1].type, p[1])
+    else:
+        p[0] = p[2]
 
 print('\n_____________ANALISADOR SINTATICO____________\n')
-
-def p_error(p):
-    print("Erro de sintaxe: fim inesperado do arquivo ou erro grave")
-    exit(0)  
 
 #Cria o sintatico
 parser = yacc.yacc()
 try:
     result = parser.parse(data, lexer=lexer)
-    print("Essa mensagem significa que não houve erros.")
     
 except Exception as e:
-    print(f"Erro ao analisar a entrada: {e}")
-    # Adicione mais detalhes do erro se necessário: print(e)
+    print('Não foi possivel construir árvore sintática.')

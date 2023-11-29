@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-data = '''int id'''
+data = '''5'''
 
 
 #ANALISADOR LEXICO
@@ -19,7 +19,11 @@ reserved = {
     'return': 'RETURN',
     'default': 'DEFAULT',
     'case': 'CASE',
-    'struct': 'STRUCT'
+    'struct': 'STRUCT',
+    'for': 'FOR',
+    'switch': 'SWITCH',
+    'break': 'BREAK',
+    'continue': 'CONTINUE'
 }
 
 tokens = [
@@ -29,7 +33,7 @@ tokens = [
     'ID', 'NUMERO', 'VSTRING',
     # Operadores e pontuação
     'DOT','PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'ASSIGN', 'COLON', 'SEMICOLON', 'COMMA', 'LPAREN', 'RPAREN','LBRACKETS', 'RBRACKETS',
-    'GREATER', 'LESS', 'EQUAL', 'NOT', 'LBRACE', 'ELLIPSIS', 'RBRACE', 'AND', 'OR', 'MODULO', 'EMPTY',
+    'GREATER', 'LESS', 'EQUAL', 'NOT', 'LBRACE', 'ELLIPSIS', 'RBRACE', 'AND', 'OR', 'MODULO', 'EMPTY', 'MAIOR', 'MENOR',
     # Comentário
     'SINGLE_LINE_COMMENT',
     'MULTI_LINE_COMMENT'
@@ -58,6 +62,8 @@ t_OR = r'\|\|'
 t_MODULO = r'%'
 t_LBRACE = r'{'
 t_RBRACE = r'}'
+t_MAIOR = r'>'
+t_MENOR = r'<'
 
 
 
@@ -117,9 +123,9 @@ def t_MULTI_LINE_COMMENT(t):
     r'/\*(.|\n)*?\*/'
     pass  # Comentário de várias linhas, não retorna nenhum token
 
-def t_empty(t):
-    r'\s+'
-    pass 
+def p_empty(p):
+    'empty :'
+    pass
 
 # Função para lidar com erros de análise léxica
 def t_error(t):
