@@ -1,0 +1,188 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARRAY
+    ASSIGN
+    BEGIN
+    CONST
+    DOT
+    EMPTY
+    END
+    EXNOT
+    FUNCTION
+    GREATER
+    INTEGER
+    LESS
+    MAIN
+    NUMERO
+    OF
+    PRINTLN
+    READ
+    REAL
+    RECORD
+    SCANF
+    THEN
+    TYPE
+    VAR
+    VOID
+    VSTRING
+    WRITE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> declaration
+Rule 2     declaration -> declaration_variable
+Rule 3     declaration -> declaration_function
+Rule 4     declaration -> declaration_structure
+Rule 5     declaration -> comment
+Rule 6     declaration_variable -> type ID
+Rule 7     declaration_variable -> type ID EQUAL expression
+Rule 8     type -> INT
+Rule 9     type -> FLOAT
+Rule 10    type -> DOUBLE
+Rule 11    type -> CHAR
+Rule 12    type -> BOOL
+Rule 13    declaration_function -> type ID LPAREN parameters RPAREN block
+Rule 14    parameters -> parameter
+Rule 15    parameters -> parameter COMMA parameters
+Rule 16    parameters -> empty
+Rule 17    parameter -> type ID
+Rule 18    parameter -> type ID LBRACKETS RBRACKETS
+Rule 19    parameter -> type ELLIPSIS ID
+Rule 20    block -> LBRACE declarations RBRACE
+Rule 21    comment -> SINGLE_LINE_COMMENT
+Rule 22    comment -> MULTI_LINE_COMMENT
+Rule 23    expression -> atribuicao
+Rule 24    atribuicao -> ID EQUAL expression
+Rule 25    atribuicao -> ID PLUS EQUAL expression
+Rule 26    atribuicao -> ID MINUS EQUAL expression
+Rule 27    atribuicao -> ID TIMES EQUAL expression
+Rule 28    atribuicao -> ID DIVIDE EQUAL expression
+Rule 29    atribuicao -> ID MODULO EQUAL expression
+Rule 30    atribuicao -> ID AND EQUAL expression
+Rule 31    atribuicao -> ID OR EQUAL expression
+Rule 32    atribuicao -> ID EQUAL ID
+Rule 33    atribuicao -> ID PLUS EQUAL ID
+Rule 34    atribuicao -> ID MINUS EQUAL ID
+Rule 35    atribuicao -> ID TIMES EQUAL ID
+Rule 36    atribuicao -> ID DIVIDE EQUAL ID
+Rule 37    atribuicao -> ID MODULO EQUAL ID
+Rule 38    atribuicao -> ID AND EQUAL ID
+Rule 39    atribuicao -> ID OR EQUAL ID
+Rule 40    control_structure -> if_structure
+Rule 41    control_structure -> while_structure
+Rule 42    control_structure -> for_structure
+Rule 43    control_structure -> switch_structure
+Rule 44    control_structure -> break_structure
+Rule 45    control_structure -> continue_structure
+Rule 46    control_structure -> return_structure
+Rule 47    if_structure -> IF LPAREN expression RPAREN block
+Rule 48    if_structure -> IF LPAREN expression RPAREN block ELSE block
+Rule 49    while_structure -> WHILE LPAREN expression RPAREN block
+Rule 50    for_structure -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block
+Rule 51    switch_structure -> SWITCH LPAREN expression RPAREN case_list
+Rule 52    break_structure -> BREAK
+Rule 53    continue_structure -> CONTINUE
+Rule 54    return_structure -> RETURN expression
+Rule 55    case_list -> case_declaration_star
+Rule 56    case_declaration_star -> empty
+Rule 57    case_declaration_star -> case_declaration_star case_declaration
+Rule 58    case_declaration -> CASE expression COLON block
+Rule 59    case_declaration -> DEFAULT COLON block
+
+Terminals, with rules where they appear
+
+AND                  : 30 38
+ARRAY                : 
+ASSIGN               : 
+BEGIN                : 
+BOOL                 : 12
+CASE                 : 58
+CHAR                 : 11
+COLON                : 58 59
+COMMA                : 15
+CONST                : 
+DEFAULT              : 59
+DIVIDE               : 28 36
+DOT                  : 
+DOUBLE               : 10
+ELLIPSIS             : 19
+ELSE                 : 48
+EMPTY                : 
+END                  : 
+EQUAL                : 7 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39
+EXNOT                : 
+FLOAT                : 9
+FUNCTION             : 
+GREATER              : 
+ID                   : 6 7 13 17 18 19 24 25 26 27 28 29 30 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 39
+IF                   : 47 48
+INT                  : 8
+INTEGER              : 
+LBRACE               : 20
+LBRACKETS            : 18
+LESS                 : 
+LPAREN               : 13 47 48 49 50 51
+MAIN                 : 
+MINUS                : 26 34
+MODULO               : 29 37
+MULTI_LINE_COMMENT   : 22
+NUMERO               : 
+OF                   : 
+OR                   : 31 39
+PLUS                 : 25 33
+PRINTLN              : 
+RBRACE               : 20
+RBRACKETS            : 18
+READ                 : 
+REAL                 : 
+RECORD               : 
+RETURN               : 54
+RPAREN               : 13 47 48 49 50 51
+SCANF                : 
+SEMICOLON            : 50 50
+SINGLE_LINE_COMMENT  : 21
+THEN                 : 
+TIMES                : 27 35
+TYPE                 : 
+VAR                  : 
+VOID                 : 
+VSTRING              : 
+WHILE                : 49
+WRITE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+BREAK                : 52
+CONTINUE             : 53
+FOR                  : 50
+SWITCH               : 51
+atribuicao           : 23
+block                : 13 47 48 48 49 50 58 59
+break_structure      : 44
+case_declaration     : 57
+case_declaration_star : 55 57
+case_list            : 51
+comment              : 5
+continue_structure   : 45
+control_structure    : 
+declaration          : 1
+declaration_function : 3
+declaration_structure : 4
+declaration_variable : 2
+declarations         : 20
+empty                : 16 56
+expression           : 7 24 25 26 27 28 29 30 31 47 48 49 50 50 50 51 54 58
+for_structure        : 42
+if_structure         : 40
+parameter            : 14 15
+parameters           : 13 15
+program              : 0
+return_structure     : 46
+switch_structure     : 43
+type                 : 6 7 13 17 18 19
+while_structure      : 41
+
