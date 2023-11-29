@@ -28,10 +28,16 @@ def p_declaration(p):
 # 3º Regra: declaração de variavel
 def p_declaration_variable(p):
     '''declaration_variable : type ID 
-                           | type ID EQUAL expression'''
+                           | type ID EQUAL expression
+                           | type ID EQUAL NUMERO
+                           | type ID EQUAL ID
+                           | type ID EQUAL VSTRING
+                           | type ID EQUAL LPAREN expression RPAREN'''
+    if len(p) == 2:
+        p[0] = (p[1])
     if len(p) == 3:
         p[0] = ('DECLARATION_VARIABLE', p[1], p[2])
-    elif len(p) == 5:
+    else: 
         p[0] = ('DECLARATION_VARIABLE', p[1], p[2], p[4])
 
 # Regra auxiliar para o Tipo
@@ -85,20 +91,19 @@ def p_comment(p):
 
 # 8ª Regra: Expressões
 def p_expression(p):
-    '''expression : atribuicao
-                  | expressao_logica'''
+    '''expression : atribuicao'''
     p[0] = p[1]
 
 # Regras para Atribuição
 def p_atribuicao(p):
-    '''atribuicao : ID EQUAL expression
-                  | ID PLUS EQUAL expression
-                  | ID MINUS EQUAL expression
-                  | ID TIMES EQUAL expression
-                  | ID DIVIDE EQUAL expression
-                  | ID MODULO EQUAL expression
-                  | ID AND EQUAL expression
-                  | ID OR EQUAL expression'''
+    '''atribuicao : ID EQUAL expressao_logica
+                  | ID PLUS EQUAL expressao_logica
+                  | ID MINUS EQUAL expressao_logica
+                  | ID TIMES EQUAL expressao_logica
+                  | ID DIVIDE EQUAL expressao_logica
+                  | ID MODULO EQUAL expressao_logica
+                  | ID AND EQUAL expressao_logica
+                  | ID OR EQUAL expressao_logica'''
     if len(p) == 4:
         p[0] = ('ATRIBUICAO', p[1], p[2], p[3])
     else: 
@@ -215,39 +220,30 @@ def p_expressao_relacional(p):
 
 # Expressão aritmetica
 def p_expressao_aritmetica(p):
-    '''expressao_aritmetica : expressao_multiplicativa
-                             | expressao_aritmetica PLUS expressao_multiplicativa
-                             | expressao_aritmetica MINUS expressao_multiplicativa
+    '''expressao_aritmetica : expressao_multiplicativa 
                              | expressao_aritmetica PLUS expressao_aritmetica
                              | expressao_aritmetica MINUS expressao_aritmetica'''
     if len(p) == 2:
         p[0] = p[1]
-    elif p[2] == '+':
-        p[0] = (p[1], p[2], p[3])
-    elif p[2] == '-':
+    else:
         p[0] = (p[1], p[2], p[3])
 
 # Expressão multiplicativa
 def p_expressao_multiplicativa(p):
     '''expressao_multiplicativa : expressao_unaria
-                                 | expressao_multiplicativa TIMES expressao_unaria
-                                 | expressao_multiplicativa DIVIDE expressao_unaria
-                                 | expressao_multiplicativa MODULO expressao_unaria '''
+                                 | expressao_multiplicativa TIMES expressao_multiplicativa
+                                 | expressao_multiplicativa DIVIDE expressao_multiplicativa
+                                 | expressao_multiplicativa MODULO expressao_multiplicativa '''
     if len(p) == 2:
         p[0] = p[1]
-    elif p[2] == 'TIMES':
-        p[0] = (p[1], 'TIMES', p[3])
-    elif p[2] == 'DIVIDE':
-        p[0] = (p[1], 'DIVIDE', p[3])
-    elif p[2] == 'MODULO':
-        p[0] = (p[1], 'MODULO', p[3])
+    else:
+        p[0] = (p[1], p[2], p[3])
 
 # Expressão unaria
 def p_expressao_unaria(p):
     '''expressao_unaria : expressao_postfix
-                        | MINUS expressao_unaria
-                        | PLUS PLUS expressao_postfix
-                        | MINUS MINUS expressao_postfix'''
+                        | PLUS expressao_unaria
+                        | MINUS expressao_unaria'''
     if len(p) == 2:
         p[0] = p[1]
     elif len(p) == 3:
@@ -284,12 +280,9 @@ def p_primaria(p):
                 | VSTRING
                 | LPAREN expression RPAREN'''
     if len(p) == 2:
-        if p[1].type == 'ID':
-            p[0] = ('ID', p[1])
-        else:
-            p[0] = (p[1].type, p[1])
+        p[0] = p[1]
     else:
-        p[0] = p[2]
+        p[0] = (p[1], p[2], p[3])
 
 # ERRO
 def p_error(p):

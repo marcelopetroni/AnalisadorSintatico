@@ -1,6 +1,8 @@
 import ply.lex as lex
 
-data = '''int'''
+data = '''for i in range(5):
+            print(i)
+'''
 
 #ANALISADOR LEXICO
 # Definindo os tokens
@@ -13,7 +15,7 @@ reserved = {
     'boolean': 'BOOL',
     'void': 'VOID',
     'scanf': 'SCANF',
-    'println': 'PRINTLN',
+    'print': 'PRINT',
     'main': 'MAIN',
     'return': 'RETURN',
     'default': 'DEFAULT',
@@ -22,7 +24,13 @@ reserved = {
     'for': 'FOR',
     'switch': 'SWITCH',
     'break': 'BREAK',
-    'continue': 'CONTINUE'
+    'continue': 'CONTINUE',
+    'if' : 'IF',
+    'else' : 'ELSE',
+    'while' : 'WHILE',
+    'in': 'IN',
+    'range': 'RANGE'
+
 }
 
 tokens = [
