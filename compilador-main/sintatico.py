@@ -28,17 +28,23 @@ def p_declaration(p):
 # 3º Regra: declaração de variavel
 def p_declaration_variable(p):
     '''declaration_variable : type ID 
+                           | ID EQUAL NUMERO
+                           | ID EQUAL ID
+                           | ID EQUAL VSTRING
+                           | ID EQUAL expression
                            | type ID EQUAL expression
                            | type ID EQUAL NUMERO
                            | type ID EQUAL ID
                            | type ID EQUAL VSTRING
                            | type ID EQUAL LPAREN expression RPAREN'''
-    if len(p) == 2:
-        p[0] = (p[1])
     if len(p) == 3:
         p[0] = ('DECLARATION_VARIABLE', p[1], p[2])
-    else: 
-        p[0] = ('DECLARATION_VARIABLE', p[1], p[2], p[4])
+    elif len(p) == 4:
+        p[0] = ('DECLARATION_VARIABLE', p[1], p[2], p[3])
+    elif len(p) == 5:
+        p[0] = ('DECLARATION_VARIABLE', p[1], p[2], p[3], p[4])
+    elif len(p) == 6:
+        p[0] = ('DECLARATION_VARIABLE', p[1], p[2], p[3], p[4], p[5])
 
 # Regra auxiliar para o Tipo
 def p_type(p):

@@ -10,16 +10,17 @@ Unused terminals:
     END
     FUNCTION
     GREATER
+    IN
     INTEGER
     LESS
     MAIN
     OF
     PRINT
+    RANGE
     READ
     REAL
     RECORD
     SCANF
-    SEMICOLON
     STRUCT
     THEN
     TYPE
@@ -36,194 +37,3278 @@ Rule 3     declaration -> declaration_function
 Rule 4     declaration -> declaration_structure
 Rule 5     declaration -> comment
 Rule 6     declaration_variable -> type ID
-Rule 7     declaration_variable -> type ID EQUAL expression
-Rule 8     declaration_variable -> type ID EQUAL NUMERO
-Rule 9     declaration_variable -> type ID EQUAL ID
-Rule 10    declaration_variable -> type ID EQUAL VSTRING
-Rule 11    declaration_variable -> type ID EQUAL LPAREN expression RPAREN
-Rule 12    type -> INT
-Rule 13    type -> FLOAT
-Rule 14    type -> DOUBLE
-Rule 15    type -> CHAR
-Rule 16    type -> BOOL
-Rule 17    declaration_function -> type ID LPAREN parameters RPAREN block
-Rule 18    parameters -> parameter
-Rule 19    parameters -> parameter COMMA parameters
-Rule 20    parameters -> empty
-Rule 21    parameter -> type ID
-Rule 22    parameter -> type ID LBRACKETS RBRACKETS
-Rule 23    parameter -> type ELLIPSIS ID
-Rule 24    block -> LBRACE declaration RBRACE
-Rule 25    comment -> SINGLE_LINE_COMMENT
-Rule 26    comment -> MULTI_LINE_COMMENT
-Rule 27    expression -> atribuicao
-Rule 28    atribuicao -> ID EQUAL expressao_logica
-Rule 29    atribuicao -> ID PLUS EQUAL expressao_logica
-Rule 30    atribuicao -> ID MINUS EQUAL expressao_logica
-Rule 31    atribuicao -> ID TIMES EQUAL expressao_logica
-Rule 32    atribuicao -> ID DIVIDE EQUAL expressao_logica
-Rule 33    atribuicao -> ID MODULO EQUAL expressao_logica
-Rule 34    atribuicao -> ID AND EQUAL expressao_logica
-Rule 35    atribuicao -> ID OR EQUAL expressao_logica
-Rule 36    declaration_structure -> if_structure
-Rule 37    declaration_structure -> while_structure
-Rule 38    declaration_structure -> for_structure
-Rule 39    declaration_structure -> switch_structure
-Rule 40    declaration_structure -> break_structure
-Rule 41    declaration_structure -> continue_structure
-Rule 42    declaration_structure -> return_structure
-Rule 43    if_structure -> IF LPAREN expression RPAREN block
-Rule 44    if_structure -> IF LPAREN expression RPAREN block ELSE block
-Rule 45    while_structure -> WHILE LPAREN expression RPAREN block
-Rule 46    empty -> <empty>
-Rule 47    for_structure -> FOR ID IN RANGE LPAREN NUMBER RPAREN COLON
-Rule 48    switch_structure -> SWITCH LPAREN expression RPAREN case_list
-Rule 49    break_structure -> BREAK
-Rule 50    continue_structure -> CONTINUE
-Rule 51    return_structure -> RETURN expression
-Rule 52    case_list -> case_declaration_star
-Rule 53    case_declaration_star -> empty
-Rule 54    case_declaration_star -> case_declaration_star case_declaration
-Rule 55    case_declaration -> CASE expression COLON block
-Rule 56    case_declaration -> DEFAULT COLON block
-Rule 57    array -> ID LBRACKETS expression RBRACKETS
-Rule 58    array -> ID LBRACKETS RBRACKETS
-Rule 59    expressao_logica -> expressao_relacional
-Rule 60    expressao_logica -> NOT expressao_relacional
-Rule 61    expressao_logica -> expressao_logica AND expressao_relacional
-Rule 62    expressao_logica -> expressao_logica OR expressao_relacional
-Rule 63    expressao_relacional -> expressao_aritmetica
-Rule 64    expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica
-Rule 65    expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica
-Rule 66    expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica
-Rule 67    expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica
-Rule 68    expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica
-Rule 69    expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica
-Rule 70    expressao_aritmetica -> expressao_multiplicativa
-Rule 71    expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica
-Rule 72    expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica
-Rule 73    expressao_multiplicativa -> expressao_unaria
-Rule 74    expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa
-Rule 75    expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa
-Rule 76    expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa
-Rule 77    expressao_unaria -> expressao_postfix
-Rule 78    expressao_unaria -> PLUS expressao_unaria
-Rule 79    expressao_unaria -> MINUS expressao_unaria
-Rule 80    expressao_postfix -> primaria
-Rule 81    expressao_postfix -> primaria LBRACKETS expression RBRACKETS
-Rule 82    expressao_postfix -> primaria LPAREN argumentos RPAREN
-Rule 83    expressao_postfix -> primaria DOT ID
-Rule 84    argumentos -> array
-Rule 85    argumentos -> empty
-Rule 86    primaria -> ID
-Rule 87    primaria -> NUMERO
-Rule 88    primaria -> VSTRING
-Rule 89    primaria -> LPAREN expression RPAREN
+Rule 7     declaration_variable -> ID EQUAL NUMERO
+Rule 8     declaration_variable -> ID EQUAL ID
+Rule 9     declaration_variable -> ID EQUAL VSTRING
+Rule 10    declaration_variable -> ID EQUAL expression
+Rule 11    declaration_variable -> type ID EQUAL expression
+Rule 12    declaration_variable -> type ID EQUAL NUMERO
+Rule 13    declaration_variable -> type ID EQUAL ID
+Rule 14    declaration_variable -> type ID EQUAL VSTRING
+Rule 15    declaration_variable -> type ID EQUAL LPAREN expression RPAREN
+Rule 16    type -> INT
+Rule 17    type -> FLOAT
+Rule 18    type -> DOUBLE
+Rule 19    type -> CHAR
+Rule 20    type -> BOOL
+Rule 21    declaration_function -> type ID LPAREN parameters RPAREN block
+Rule 22    parameters -> parameter
+Rule 23    parameters -> parameter COMMA parameters
+Rule 24    parameters -> empty
+Rule 25    parameter -> type ID
+Rule 26    parameter -> type ID LBRACKETS RBRACKETS
+Rule 27    parameter -> type ELLIPSIS ID
+Rule 28    block -> LBRACE declaration RBRACE
+Rule 29    comment -> SINGLE_LINE_COMMENT
+Rule 30    comment -> MULTI_LINE_COMMENT
+Rule 31    expression -> atribuicao
+Rule 32    atribuicao -> ID EQUAL expressao_logica
+Rule 33    atribuicao -> ID PLUS EQUAL expressao_logica
+Rule 34    atribuicao -> ID MINUS EQUAL expressao_logica
+Rule 35    atribuicao -> ID TIMES EQUAL expressao_logica
+Rule 36    atribuicao -> ID DIVIDE EQUAL expressao_logica
+Rule 37    atribuicao -> ID MODULO EQUAL expressao_logica
+Rule 38    atribuicao -> ID AND EQUAL expressao_logica
+Rule 39    atribuicao -> ID OR EQUAL expressao_logica
+Rule 40    declaration_structure -> if_structure
+Rule 41    declaration_structure -> while_structure
+Rule 42    declaration_structure -> for_structure
+Rule 43    declaration_structure -> switch_structure
+Rule 44    declaration_structure -> break_structure
+Rule 45    declaration_structure -> continue_structure
+Rule 46    declaration_structure -> return_structure
+Rule 47    if_structure -> IF LPAREN expression RPAREN block
+Rule 48    if_structure -> IF LPAREN expression RPAREN block ELSE block
+Rule 49    empty -> <empty>
+Rule 50    while_structure -> WHILE LPAREN expression RPAREN block
+Rule 51    for_structure -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block
+Rule 52    switch_structure -> SWITCH LPAREN expression RPAREN case_list
+Rule 53    break_structure -> BREAK
+Rule 54    continue_structure -> CONTINUE
+Rule 55    return_structure -> RETURN expression
+Rule 56    case_list -> case_declaration_star
+Rule 57    case_declaration_star -> empty
+Rule 58    case_declaration_star -> case_declaration_star case_declaration
+Rule 59    case_declaration -> CASE expression COLON block
+Rule 60    case_declaration -> DEFAULT COLON block
+Rule 61    array -> ID LBRACKETS expression RBRACKETS
+Rule 62    array -> ID LBRACKETS RBRACKETS
+Rule 63    expressao_logica -> expressao_relacional
+Rule 64    expressao_logica -> NOT expressao_relacional
+Rule 65    expressao_logica -> expressao_logica AND expressao_relacional
+Rule 66    expressao_logica -> expressao_logica OR expressao_relacional
+Rule 67    expressao_relacional -> expressao_aritmetica
+Rule 68    expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica
+Rule 69    expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+Rule 70    expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica
+Rule 71    expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica
+Rule 72    expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica
+Rule 73    expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+Rule 74    expressao_aritmetica -> expressao_multiplicativa
+Rule 75    expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica
+Rule 76    expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica
+Rule 77    expressao_multiplicativa -> expressao_unaria
+Rule 78    expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa
+Rule 79    expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa
+Rule 80    expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa
+Rule 81    expressao_unaria -> expressao_postfix
+Rule 82    expressao_unaria -> PLUS expressao_unaria
+Rule 83    expressao_unaria -> MINUS expressao_unaria
+Rule 84    expressao_postfix -> primaria
+Rule 85    expressao_postfix -> primaria LBRACKETS expression RBRACKETS
+Rule 86    expressao_postfix -> primaria LPAREN argumentos RPAREN
+Rule 87    expressao_postfix -> primaria DOT ID
+Rule 88    argumentos -> array
+Rule 89    argumentos -> empty
+Rule 90    primaria -> ID
+Rule 91    primaria -> NUMERO
+Rule 92    primaria -> VSTRING
+Rule 93    primaria -> LPAREN expression RPAREN
 
 Terminals, with rules where they appear
 
-AND                  : 34 61
+AND                  : 38 65
 ARRAY                : 
 ASSIGN               : 
 BEGIN                : 
-BOOL                 : 16
-BREAK                : 49
-CASE                 : 55
-CHAR                 : 15
-COLON                : 47 55 56
-COMMA                : 19
+BOOL                 : 20
+BREAK                : 53
+CASE                 : 59
+CHAR                 : 19
+COLON                : 59 60
+COMMA                : 23
 CONST                : 
-CONTINUE             : 50
-DEFAULT              : 56
-DIVIDE               : 32 75
-DOT                  : 83
-DOUBLE               : 14
-ELLIPSIS             : 23
-ELSE                 : 44
+CONTINUE             : 54
+DEFAULT              : 60
+DIVIDE               : 36 79
+DOT                  : 87
+DOUBLE               : 18
+ELLIPSIS             : 27
+ELSE                 : 48
 EMPTY                : 
 END                  : 
-EQUAL                : 7 8 9 10 11 28 29 30 31 32 33 34 35 65 67 68 69 69
-FLOAT                : 13
-FOR                  : 47
+EQUAL                : 7 8 9 10 11 12 13 14 15 32 33 34 35 36 37 38 39 69 71 72 73 73
+FLOAT                : 17
+FOR                  : 51
 FUNCTION             : 
 GREATER              : 
-ID                   : 6 7 8 9 9 10 11 17 21 22 23 28 29 30 31 32 33 34 35 47 57 58 83 86
-IF                   : 43 44
-IN                   : 47
-INT                  : 12
+ID                   : 6 7 8 8 9 10 11 12 13 13 14 15 21 25 26 27 32 33 34 35 36 37 38 39 61 62 87 90
+IF                   : 47 48
+IN                   : 
+INT                  : 16
 INTEGER              : 
-LBRACE               : 24
-LBRACKETS            : 22 57 58 81
+LBRACE               : 28
+LBRACKETS            : 26 61 62 85
 LESS                 : 
-LPAREN               : 11 17 43 44 45 47 48 82 89
+LPAREN               : 15 21 47 48 50 51 52 86 93
 MAIN                 : 
-MAIOR                : 64 65
-MENOR                : 66 67
-MINUS                : 30 72 79
-MODULO               : 33 76
-MULTI_LINE_COMMENT   : 26
-NOT                  : 60 68
-NUMERO               : 8 87
+MAIOR                : 68 69
+MENOR                : 70 71
+MINUS                : 34 76 83
+MODULO               : 37 80
+MULTI_LINE_COMMENT   : 30
+NOT                  : 64 72
+NUMERO               : 7 12 91
 OF                   : 
-OR                   : 35 62
-PLUS                 : 29 71 78
+OR                   : 39 66
+PLUS                 : 33 75 82
 PRINT                : 
-RANGE                : 47
-RBRACE               : 24
-RBRACKETS            : 22 57 58 81
+RANGE                : 
+RBRACE               : 28
+RBRACKETS            : 26 61 62 85
 READ                 : 
 REAL                 : 
 RECORD               : 
-RETURN               : 51
-RPAREN               : 11 17 43 44 45 47 48 82 89
+RETURN               : 55
+RPAREN               : 15 21 47 48 50 51 52 86 93
 SCANF                : 
-SEMICOLON            : 
-SINGLE_LINE_COMMENT  : 25
+SEMICOLON            : 51 51
+SINGLE_LINE_COMMENT  : 29
 STRUCT               : 
-SWITCH               : 48
+SWITCH               : 52
 THEN                 : 
-TIMES                : 31 74
+TIMES                : 35 78
 TYPE                 : 
 VAR                  : 
 VOID                 : 
-VSTRING              : 10 88
-WHILE                : 45
+VSTRING              : 9 14 92
+WHILE                : 50
 WRITE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-NUMBER               : 47
-argumentos           : 82
-array                : 84
-atribuicao           : 27
-block                : 17 43 44 44 45 55 56
-break_structure      : 40
-case_declaration     : 54
-case_declaration_star : 52 54
-case_list            : 48
+argumentos           : 86
+array                : 88
+atribuicao           : 31
+block                : 21 47 48 48 50 51 59 60
+break_structure      : 44
+case_declaration     : 58
+case_declaration_star : 56 58
+case_list            : 52
 comment              : 5
-continue_structure   : 41
-declaration          : 1 24
+continue_structure   : 45
+declaration          : 1 28
 declaration_function : 3
 declaration_structure : 4
 declaration_variable : 2
-empty                : 20 53 85
-expressao_aritmetica : 63 64 64 65 65 66 66 67 67 68 68 69 69 71 71 72 72
-expressao_logica     : 28 29 30 31 32 33 34 35 61 62
-expressao_multiplicativa : 70 74 74 75 75 76 76
-expressao_postfix    : 77
-expressao_relacional : 59 60 61 62
-expressao_unaria     : 73 78 79
-expression           : 7 11 43 44 45 48 51 55 57 81 89
-for_structure        : 38
-if_structure         : 36
-parameter            : 18 19
-parameters           : 17 19
-primaria             : 80 81 82 83
+empty                : 24 57 89
+expressao_aritmetica : 67 68 68 69 69 70 70 71 71 72 72 73 73 75 75 76 76
+expressao_logica     : 32 33 34 35 36 37 38 39 65 66
+expressao_multiplicativa : 74 78 78 79 79 80 80
+expressao_postfix    : 81
+expressao_relacional : 63 64 65 66
+expressao_unaria     : 77 82 83
+expression           : 10 11 15 47 48 50 51 51 51 52 55 59 61 85 93
+for_structure        : 42
+if_structure         : 40
+parameter            : 22 23
+parameters           : 21 23
+primaria             : 84 85 86 87
 program              : 0
-return_structure     : 42
-switch_structure     : 39
-type                 : 6 7 8 9 10 11 17 21 22 23
-while_structure      : 37
+return_structure     : 46
+switch_structure     : 43
+type                 : 6 11 12 13 14 15 21 25 26 27
+while_structure      : 41
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . declaration
+    (2) declaration -> . declaration_variable
+    (3) declaration -> . declaration_function
+    (4) declaration -> . declaration_structure
+    (5) declaration -> . comment
+    (6) declaration_variable -> . type ID
+    (7) declaration_variable -> . ID EQUAL NUMERO
+    (8) declaration_variable -> . ID EQUAL ID
+    (9) declaration_variable -> . ID EQUAL VSTRING
+    (10) declaration_variable -> . ID EQUAL expression
+    (11) declaration_variable -> . type ID EQUAL expression
+    (12) declaration_variable -> . type ID EQUAL NUMERO
+    (13) declaration_variable -> . type ID EQUAL ID
+    (14) declaration_variable -> . type ID EQUAL VSTRING
+    (15) declaration_variable -> . type ID EQUAL LPAREN expression RPAREN
+    (21) declaration_function -> . type ID LPAREN parameters RPAREN block
+    (40) declaration_structure -> . if_structure
+    (41) declaration_structure -> . while_structure
+    (42) declaration_structure -> . for_structure
+    (43) declaration_structure -> . switch_structure
+    (44) declaration_structure -> . break_structure
+    (45) declaration_structure -> . continue_structure
+    (46) declaration_structure -> . return_structure
+    (29) comment -> . SINGLE_LINE_COMMENT
+    (30) comment -> . MULTI_LINE_COMMENT
+    (16) type -> . INT
+    (17) type -> . FLOAT
+    (18) type -> . DOUBLE
+    (19) type -> . CHAR
+    (20) type -> . BOOL
+    (47) if_structure -> . IF LPAREN expression RPAREN block
+    (48) if_structure -> . IF LPAREN expression RPAREN block ELSE block
+    (50) while_structure -> . WHILE LPAREN expression RPAREN block
+    (51) for_structure -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block
+    (52) switch_structure -> . SWITCH LPAREN expression RPAREN case_list
+    (53) break_structure -> . BREAK
+    (54) continue_structure -> . CONTINUE
+    (55) return_structure -> . RETURN expression
+
+    ID              shift and go to state 8
+    SINGLE_LINE_COMMENT shift and go to state 16
+    MULTI_LINE_COMMENT shift and go to state 17
+    INT             shift and go to state 18
+    FLOAT           shift and go to state 19
+    DOUBLE          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOL            shift and go to state 22
+    IF              shift and go to state 23
+    WHILE           shift and go to state 24
+    FOR             shift and go to state 25
+    SWITCH          shift and go to state 26
+    BREAK           shift and go to state 27
+    CONTINUE        shift and go to state 28
+    RETURN          shift and go to state 29
+
+    program                        shift and go to state 1
+    declaration                    shift and go to state 2
+    declaration_variable           shift and go to state 3
+    declaration_function           shift and go to state 4
+    declaration_structure          shift and go to state 5
+    comment                        shift and go to state 6
+    type                           shift and go to state 7
+    if_structure                   shift and go to state 9
+    while_structure                shift and go to state 10
+    for_structure                  shift and go to state 11
+    switch_structure               shift and go to state 12
+    break_structure                shift and go to state 13
+    continue_structure             shift and go to state 14
+    return_structure               shift and go to state 15
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> declaration .
+
+    $end            reduce using rule 1 (program -> declaration .)
+
+
+state 3
+
+    (2) declaration -> declaration_variable .
+
+    $end            reduce using rule 2 (declaration -> declaration_variable .)
+    RBRACE          reduce using rule 2 (declaration -> declaration_variable .)
+
+
+state 4
+
+    (3) declaration -> declaration_function .
+
+    $end            reduce using rule 3 (declaration -> declaration_function .)
+    RBRACE          reduce using rule 3 (declaration -> declaration_function .)
+
+
+state 5
+
+    (4) declaration -> declaration_structure .
+
+    $end            reduce using rule 4 (declaration -> declaration_structure .)
+    RBRACE          reduce using rule 4 (declaration -> declaration_structure .)
+
+
+state 6
+
+    (5) declaration -> comment .
+
+    $end            reduce using rule 5 (declaration -> comment .)
+    RBRACE          reduce using rule 5 (declaration -> comment .)
+
+
+state 7
+
+    (6) declaration_variable -> type . ID
+    (11) declaration_variable -> type . ID EQUAL expression
+    (12) declaration_variable -> type . ID EQUAL NUMERO
+    (13) declaration_variable -> type . ID EQUAL ID
+    (14) declaration_variable -> type . ID EQUAL VSTRING
+    (15) declaration_variable -> type . ID EQUAL LPAREN expression RPAREN
+    (21) declaration_function -> type . ID LPAREN parameters RPAREN block
+
+    ID              shift and go to state 30
+
+
+state 8
+
+    (7) declaration_variable -> ID . EQUAL NUMERO
+    (8) declaration_variable -> ID . EQUAL ID
+    (9) declaration_variable -> ID . EQUAL VSTRING
+    (10) declaration_variable -> ID . EQUAL expression
+
+    EQUAL           shift and go to state 31
+
+
+state 9
+
+    (40) declaration_structure -> if_structure .
+
+    $end            reduce using rule 40 (declaration_structure -> if_structure .)
+    RBRACE          reduce using rule 40 (declaration_structure -> if_structure .)
+
+
+state 10
+
+    (41) declaration_structure -> while_structure .
+
+    $end            reduce using rule 41 (declaration_structure -> while_structure .)
+    RBRACE          reduce using rule 41 (declaration_structure -> while_structure .)
+
+
+state 11
+
+    (42) declaration_structure -> for_structure .
+
+    $end            reduce using rule 42 (declaration_structure -> for_structure .)
+    RBRACE          reduce using rule 42 (declaration_structure -> for_structure .)
+
+
+state 12
+
+    (43) declaration_structure -> switch_structure .
+
+    $end            reduce using rule 43 (declaration_structure -> switch_structure .)
+    RBRACE          reduce using rule 43 (declaration_structure -> switch_structure .)
+
+
+state 13
+
+    (44) declaration_structure -> break_structure .
+
+    $end            reduce using rule 44 (declaration_structure -> break_structure .)
+    RBRACE          reduce using rule 44 (declaration_structure -> break_structure .)
+
+
+state 14
+
+    (45) declaration_structure -> continue_structure .
+
+    $end            reduce using rule 45 (declaration_structure -> continue_structure .)
+    RBRACE          reduce using rule 45 (declaration_structure -> continue_structure .)
+
+
+state 15
+
+    (46) declaration_structure -> return_structure .
+
+    $end            reduce using rule 46 (declaration_structure -> return_structure .)
+    RBRACE          reduce using rule 46 (declaration_structure -> return_structure .)
+
+
+state 16
+
+    (29) comment -> SINGLE_LINE_COMMENT .
+
+    $end            reduce using rule 29 (comment -> SINGLE_LINE_COMMENT .)
+    RBRACE          reduce using rule 29 (comment -> SINGLE_LINE_COMMENT .)
+
+
+state 17
+
+    (30) comment -> MULTI_LINE_COMMENT .
+
+    $end            reduce using rule 30 (comment -> MULTI_LINE_COMMENT .)
+    RBRACE          reduce using rule 30 (comment -> MULTI_LINE_COMMENT .)
+
+
+state 18
+
+    (16) type -> INT .
+
+    ID              reduce using rule 16 (type -> INT .)
+    ELLIPSIS        reduce using rule 16 (type -> INT .)
+
+
+state 19
+
+    (17) type -> FLOAT .
+
+    ID              reduce using rule 17 (type -> FLOAT .)
+    ELLIPSIS        reduce using rule 17 (type -> FLOAT .)
+
+
+state 20
+
+    (18) type -> DOUBLE .
+
+    ID              reduce using rule 18 (type -> DOUBLE .)
+    ELLIPSIS        reduce using rule 18 (type -> DOUBLE .)
+
+
+state 21
+
+    (19) type -> CHAR .
+
+    ID              reduce using rule 19 (type -> CHAR .)
+    ELLIPSIS        reduce using rule 19 (type -> CHAR .)
+
+
+state 22
+
+    (20) type -> BOOL .
+
+    ID              reduce using rule 20 (type -> BOOL .)
+    ELLIPSIS        reduce using rule 20 (type -> BOOL .)
+
+
+state 23
+
+    (47) if_structure -> IF . LPAREN expression RPAREN block
+    (48) if_structure -> IF . LPAREN expression RPAREN block ELSE block
+
+    LPAREN          shift and go to state 32
+
+
+state 24
+
+    (50) while_structure -> WHILE . LPAREN expression RPAREN block
+
+    LPAREN          shift and go to state 33
+
+
+state 25
+
+    (51) for_structure -> FOR . LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block
+
+    LPAREN          shift and go to state 34
+
+
+state 26
+
+    (52) switch_structure -> SWITCH . LPAREN expression RPAREN case_list
+
+    LPAREN          shift and go to state 35
+
+
+state 27
+
+    (53) break_structure -> BREAK .
+
+    $end            reduce using rule 53 (break_structure -> BREAK .)
+    RBRACE          reduce using rule 53 (break_structure -> BREAK .)
+
+
+state 28
+
+    (54) continue_structure -> CONTINUE .
+
+    $end            reduce using rule 54 (continue_structure -> CONTINUE .)
+    RBRACE          reduce using rule 54 (continue_structure -> CONTINUE .)
+
+
+state 29
+
+    (55) return_structure -> RETURN . expression
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 36
+    atribuicao                     shift and go to state 37
+
+state 30
+
+    (6) declaration_variable -> type ID .
+    (11) declaration_variable -> type ID . EQUAL expression
+    (12) declaration_variable -> type ID . EQUAL NUMERO
+    (13) declaration_variable -> type ID . EQUAL ID
+    (14) declaration_variable -> type ID . EQUAL VSTRING
+    (15) declaration_variable -> type ID . EQUAL LPAREN expression RPAREN
+    (21) declaration_function -> type ID . LPAREN parameters RPAREN block
+
+    $end            reduce using rule 6 (declaration_variable -> type ID .)
+    RBRACE          reduce using rule 6 (declaration_variable -> type ID .)
+    EQUAL           shift and go to state 39
+    LPAREN          shift and go to state 40
+
+
+state 31
+
+    (7) declaration_variable -> ID EQUAL . NUMERO
+    (8) declaration_variable -> ID EQUAL . ID
+    (9) declaration_variable -> ID EQUAL . VSTRING
+    (10) declaration_variable -> ID EQUAL . expression
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    NUMERO          shift and go to state 42
+    ID              shift and go to state 41
+    VSTRING         shift and go to state 43
+
+    expression                     shift and go to state 44
+    atribuicao                     shift and go to state 37
+
+state 32
+
+    (47) if_structure -> IF LPAREN . expression RPAREN block
+    (48) if_structure -> IF LPAREN . expression RPAREN block ELSE block
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 45
+    atribuicao                     shift and go to state 37
+
+state 33
+
+    (50) while_structure -> WHILE LPAREN . expression RPAREN block
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 46
+    atribuicao                     shift and go to state 37
+
+state 34
+
+    (51) for_structure -> FOR LPAREN . expression SEMICOLON expression SEMICOLON expression RPAREN block
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 47
+    atribuicao                     shift and go to state 37
+
+state 35
+
+    (52) switch_structure -> SWITCH LPAREN . expression RPAREN case_list
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 48
+    atribuicao                     shift and go to state 37
+
+state 36
+
+    (55) return_structure -> RETURN expression .
+
+    $end            reduce using rule 55 (return_structure -> RETURN expression .)
+    RBRACE          reduce using rule 55 (return_structure -> RETURN expression .)
+
+
+state 37
+
+    (31) expression -> atribuicao .
+
+    $end            reduce using rule 31 (expression -> atribuicao .)
+    RBRACE          reduce using rule 31 (expression -> atribuicao .)
+    RPAREN          reduce using rule 31 (expression -> atribuicao .)
+    SEMICOLON       reduce using rule 31 (expression -> atribuicao .)
+    RBRACKETS       reduce using rule 31 (expression -> atribuicao .)
+    COLON           reduce using rule 31 (expression -> atribuicao .)
+
+
+state 38
+
+    (32) atribuicao -> ID . EQUAL expressao_logica
+    (33) atribuicao -> ID . PLUS EQUAL expressao_logica
+    (34) atribuicao -> ID . MINUS EQUAL expressao_logica
+    (35) atribuicao -> ID . TIMES EQUAL expressao_logica
+    (36) atribuicao -> ID . DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> ID . MODULO EQUAL expressao_logica
+    (38) atribuicao -> ID . AND EQUAL expressao_logica
+    (39) atribuicao -> ID . OR EQUAL expressao_logica
+
+    EQUAL           shift and go to state 49
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    TIMES           shift and go to state 52
+    DIVIDE          shift and go to state 53
+    MODULO          shift and go to state 54
+    AND             shift and go to state 55
+    OR              shift and go to state 56
+
+
+state 39
+
+    (11) declaration_variable -> type ID EQUAL . expression
+    (12) declaration_variable -> type ID EQUAL . NUMERO
+    (13) declaration_variable -> type ID EQUAL . ID
+    (14) declaration_variable -> type ID EQUAL . VSTRING
+    (15) declaration_variable -> type ID EQUAL . LPAREN expression RPAREN
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    NUMERO          shift and go to state 59
+    ID              shift and go to state 57
+    VSTRING         shift and go to state 60
+    LPAREN          shift and go to state 61
+
+    expression                     shift and go to state 58
+    atribuicao                     shift and go to state 37
+
+state 40
+
+    (21) declaration_function -> type ID LPAREN . parameters RPAREN block
+    (22) parameters -> . parameter
+    (23) parameters -> . parameter COMMA parameters
+    (24) parameters -> . empty
+    (25) parameter -> . type ID
+    (26) parameter -> . type ID LBRACKETS RBRACKETS
+    (27) parameter -> . type ELLIPSIS ID
+    (49) empty -> .
+    (16) type -> . INT
+    (17) type -> . FLOAT
+    (18) type -> . DOUBLE
+    (19) type -> . CHAR
+    (20) type -> . BOOL
+
+    RPAREN          reduce using rule 49 (empty -> .)
+    INT             shift and go to state 18
+    FLOAT           shift and go to state 19
+    DOUBLE          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOL            shift and go to state 22
+
+    type                           shift and go to state 62
+    parameters                     shift and go to state 63
+    parameter                      shift and go to state 64
+    empty                          shift and go to state 65
+
+state 41
+
+    (8) declaration_variable -> ID EQUAL ID .
+    (32) atribuicao -> ID . EQUAL expressao_logica
+    (33) atribuicao -> ID . PLUS EQUAL expressao_logica
+    (34) atribuicao -> ID . MINUS EQUAL expressao_logica
+    (35) atribuicao -> ID . TIMES EQUAL expressao_logica
+    (36) atribuicao -> ID . DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> ID . MODULO EQUAL expressao_logica
+    (38) atribuicao -> ID . AND EQUAL expressao_logica
+    (39) atribuicao -> ID . OR EQUAL expressao_logica
+
+    $end            reduce using rule 8 (declaration_variable -> ID EQUAL ID .)
+    RBRACE          reduce using rule 8 (declaration_variable -> ID EQUAL ID .)
+    EQUAL           shift and go to state 49
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    TIMES           shift and go to state 52
+    DIVIDE          shift and go to state 53
+    MODULO          shift and go to state 54
+    AND             shift and go to state 55
+    OR              shift and go to state 56
+
+
+state 42
+
+    (7) declaration_variable -> ID EQUAL NUMERO .
+
+    $end            reduce using rule 7 (declaration_variable -> ID EQUAL NUMERO .)
+    RBRACE          reduce using rule 7 (declaration_variable -> ID EQUAL NUMERO .)
+
+
+state 43
+
+    (9) declaration_variable -> ID EQUAL VSTRING .
+
+    $end            reduce using rule 9 (declaration_variable -> ID EQUAL VSTRING .)
+    RBRACE          reduce using rule 9 (declaration_variable -> ID EQUAL VSTRING .)
+
+
+state 44
+
+    (10) declaration_variable -> ID EQUAL expression .
+
+    $end            reduce using rule 10 (declaration_variable -> ID EQUAL expression .)
+    RBRACE          reduce using rule 10 (declaration_variable -> ID EQUAL expression .)
+
+
+state 45
+
+    (47) if_structure -> IF LPAREN expression . RPAREN block
+    (48) if_structure -> IF LPAREN expression . RPAREN block ELSE block
+
+    RPAREN          shift and go to state 66
+
+
+state 46
+
+    (50) while_structure -> WHILE LPAREN expression . RPAREN block
+
+    RPAREN          shift and go to state 67
+
+
+state 47
+
+    (51) for_structure -> FOR LPAREN expression . SEMICOLON expression SEMICOLON expression RPAREN block
+
+    SEMICOLON       shift and go to state 68
+
+
+state 48
+
+    (52) switch_structure -> SWITCH LPAREN expression . RPAREN case_list
+
+    RPAREN          shift and go to state 69
+
+
+state 49
+
+    (32) atribuicao -> ID EQUAL . expressao_logica
+    (63) expressao_logica -> . expressao_relacional
+    (64) expressao_logica -> . NOT expressao_relacional
+    (65) expressao_logica -> . expressao_logica AND expressao_relacional
+    (66) expressao_logica -> . expressao_logica OR expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    NOT             shift and go to state 73
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_logica               shift and go to state 71
+    expressao_relacional           shift and go to state 72
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 50
+
+    (33) atribuicao -> ID PLUS . EQUAL expressao_logica
+
+    EQUAL           shift and go to state 84
+
+
+state 51
+
+    (34) atribuicao -> ID MINUS . EQUAL expressao_logica
+
+    EQUAL           shift and go to state 85
+
+
+state 52
+
+    (35) atribuicao -> ID TIMES . EQUAL expressao_logica
+
+    EQUAL           shift and go to state 86
+
+
+state 53
+
+    (36) atribuicao -> ID DIVIDE . EQUAL expressao_logica
+
+    EQUAL           shift and go to state 87
+
+
+state 54
+
+    (37) atribuicao -> ID MODULO . EQUAL expressao_logica
+
+    EQUAL           shift and go to state 88
+
+
+state 55
+
+    (38) atribuicao -> ID AND . EQUAL expressao_logica
+
+    EQUAL           shift and go to state 89
+
+
+state 56
+
+    (39) atribuicao -> ID OR . EQUAL expressao_logica
+
+    EQUAL           shift and go to state 90
+
+
+state 57
+
+    (13) declaration_variable -> type ID EQUAL ID .
+    (32) atribuicao -> ID . EQUAL expressao_logica
+    (33) atribuicao -> ID . PLUS EQUAL expressao_logica
+    (34) atribuicao -> ID . MINUS EQUAL expressao_logica
+    (35) atribuicao -> ID . TIMES EQUAL expressao_logica
+    (36) atribuicao -> ID . DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> ID . MODULO EQUAL expressao_logica
+    (38) atribuicao -> ID . AND EQUAL expressao_logica
+    (39) atribuicao -> ID . OR EQUAL expressao_logica
+
+    $end            reduce using rule 13 (declaration_variable -> type ID EQUAL ID .)
+    RBRACE          reduce using rule 13 (declaration_variable -> type ID EQUAL ID .)
+    EQUAL           shift and go to state 49
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    TIMES           shift and go to state 52
+    DIVIDE          shift and go to state 53
+    MODULO          shift and go to state 54
+    AND             shift and go to state 55
+    OR              shift and go to state 56
+
+
+state 58
+
+    (11) declaration_variable -> type ID EQUAL expression .
+
+    $end            reduce using rule 11 (declaration_variable -> type ID EQUAL expression .)
+    RBRACE          reduce using rule 11 (declaration_variable -> type ID EQUAL expression .)
+
+
+state 59
+
+    (12) declaration_variable -> type ID EQUAL NUMERO .
+
+    $end            reduce using rule 12 (declaration_variable -> type ID EQUAL NUMERO .)
+    RBRACE          reduce using rule 12 (declaration_variable -> type ID EQUAL NUMERO .)
+
+
+state 60
+
+    (14) declaration_variable -> type ID EQUAL VSTRING .
+
+    $end            reduce using rule 14 (declaration_variable -> type ID EQUAL VSTRING .)
+    RBRACE          reduce using rule 14 (declaration_variable -> type ID EQUAL VSTRING .)
+
+
+state 61
+
+    (15) declaration_variable -> type ID EQUAL LPAREN . expression RPAREN
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 91
+    atribuicao                     shift and go to state 37
+
+state 62
+
+    (25) parameter -> type . ID
+    (26) parameter -> type . ID LBRACKETS RBRACKETS
+    (27) parameter -> type . ELLIPSIS ID
+
+    ID              shift and go to state 92
+    ELLIPSIS        shift and go to state 93
+
+
+state 63
+
+    (21) declaration_function -> type ID LPAREN parameters . RPAREN block
+
+    RPAREN          shift and go to state 94
+
+
+state 64
+
+    (22) parameters -> parameter .
+    (23) parameters -> parameter . COMMA parameters
+
+    RPAREN          reduce using rule 22 (parameters -> parameter .)
+    COMMA           shift and go to state 95
+
+
+state 65
+
+    (24) parameters -> empty .
+
+    RPAREN          reduce using rule 24 (parameters -> empty .)
+
+
+state 66
+
+    (47) if_structure -> IF LPAREN expression RPAREN . block
+    (48) if_structure -> IF LPAREN expression RPAREN . block ELSE block
+    (28) block -> . LBRACE declaration RBRACE
+
+    LBRACE          shift and go to state 97
+
+    block                          shift and go to state 96
+
+state 67
+
+    (50) while_structure -> WHILE LPAREN expression RPAREN . block
+    (28) block -> . LBRACE declaration RBRACE
+
+    LBRACE          shift and go to state 97
+
+    block                          shift and go to state 98
+
+state 68
+
+    (51) for_structure -> FOR LPAREN expression SEMICOLON . expression SEMICOLON expression RPAREN block
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 99
+    atribuicao                     shift and go to state 37
+
+state 69
+
+    (52) switch_structure -> SWITCH LPAREN expression RPAREN . case_list
+    (56) case_list -> . case_declaration_star
+    (57) case_declaration_star -> . empty
+    (58) case_declaration_star -> . case_declaration_star case_declaration
+    (49) empty -> .
+
+    CASE            reduce using rule 49 (empty -> .)
+    DEFAULT         reduce using rule 49 (empty -> .)
+    $end            reduce using rule 49 (empty -> .)
+    RBRACE          reduce using rule 49 (empty -> .)
+
+    case_list                      shift and go to state 100
+    case_declaration_star          shift and go to state 101
+    empty                          shift and go to state 102
+
+state 70
+
+    (90) primaria -> ID .
+
+    LBRACKETS       reduce using rule 90 (primaria -> ID .)
+    LPAREN          reduce using rule 90 (primaria -> ID .)
+    DOT             reduce using rule 90 (primaria -> ID .)
+    TIMES           reduce using rule 90 (primaria -> ID .)
+    DIVIDE          reduce using rule 90 (primaria -> ID .)
+    MODULO          reduce using rule 90 (primaria -> ID .)
+    MAIOR           reduce using rule 90 (primaria -> ID .)
+    MENOR           reduce using rule 90 (primaria -> ID .)
+    NOT             reduce using rule 90 (primaria -> ID .)
+    EQUAL           reduce using rule 90 (primaria -> ID .)
+    PLUS            reduce using rule 90 (primaria -> ID .)
+    MINUS           reduce using rule 90 (primaria -> ID .)
+    AND             reduce using rule 90 (primaria -> ID .)
+    OR              reduce using rule 90 (primaria -> ID .)
+    $end            reduce using rule 90 (primaria -> ID .)
+    RBRACE          reduce using rule 90 (primaria -> ID .)
+    RPAREN          reduce using rule 90 (primaria -> ID .)
+    SEMICOLON       reduce using rule 90 (primaria -> ID .)
+    RBRACKETS       reduce using rule 90 (primaria -> ID .)
+    COLON           reduce using rule 90 (primaria -> ID .)
+
+
+state 71
+
+    (32) atribuicao -> ID EQUAL expressao_logica .
+    (65) expressao_logica -> expressao_logica . AND expressao_relacional
+    (66) expressao_logica -> expressao_logica . OR expressao_relacional
+
+    $end            reduce using rule 32 (atribuicao -> ID EQUAL expressao_logica .)
+    RBRACE          reduce using rule 32 (atribuicao -> ID EQUAL expressao_logica .)
+    RPAREN          reduce using rule 32 (atribuicao -> ID EQUAL expressao_logica .)
+    SEMICOLON       reduce using rule 32 (atribuicao -> ID EQUAL expressao_logica .)
+    RBRACKETS       reduce using rule 32 (atribuicao -> ID EQUAL expressao_logica .)
+    COLON           reduce using rule 32 (atribuicao -> ID EQUAL expressao_logica .)
+    AND             shift and go to state 103
+    OR              shift and go to state 104
+
+
+state 72
+
+    (63) expressao_logica -> expressao_relacional .
+
+    AND             reduce using rule 63 (expressao_logica -> expressao_relacional .)
+    OR              reduce using rule 63 (expressao_logica -> expressao_relacional .)
+    $end            reduce using rule 63 (expressao_logica -> expressao_relacional .)
+    RBRACE          reduce using rule 63 (expressao_logica -> expressao_relacional .)
+    RPAREN          reduce using rule 63 (expressao_logica -> expressao_relacional .)
+    SEMICOLON       reduce using rule 63 (expressao_logica -> expressao_relacional .)
+    RBRACKETS       reduce using rule 63 (expressao_logica -> expressao_relacional .)
+    COLON           reduce using rule 63 (expressao_logica -> expressao_relacional .)
+
+
+state 73
+
+    (64) expressao_logica -> NOT . expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_relacional           shift and go to state 105
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 74
+
+    (67) expressao_relacional -> expressao_aritmetica .
+    (68) expressao_relacional -> expressao_aritmetica . MAIOR expressao_aritmetica
+    (69) expressao_relacional -> expressao_aritmetica . MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> expressao_aritmetica . MENOR expressao_aritmetica
+    (71) expressao_relacional -> expressao_aritmetica . MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> expressao_aritmetica . NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> expressao_aritmetica . EQUAL EQUAL expressao_aritmetica
+    (75) expressao_aritmetica -> expressao_aritmetica . PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> expressao_aritmetica . MINUS expressao_aritmetica
+
+    AND             reduce using rule 67 (expressao_relacional -> expressao_aritmetica .)
+    OR              reduce using rule 67 (expressao_relacional -> expressao_aritmetica .)
+    $end            reduce using rule 67 (expressao_relacional -> expressao_aritmetica .)
+    RBRACE          reduce using rule 67 (expressao_relacional -> expressao_aritmetica .)
+    RPAREN          reduce using rule 67 (expressao_relacional -> expressao_aritmetica .)
+    SEMICOLON       reduce using rule 67 (expressao_relacional -> expressao_aritmetica .)
+    RBRACKETS       reduce using rule 67 (expressao_relacional -> expressao_aritmetica .)
+    COLON           reduce using rule 67 (expressao_relacional -> expressao_aritmetica .)
+    MAIOR           shift and go to state 106
+    MENOR           shift and go to state 108
+    NOT             shift and go to state 109
+    EQUAL           shift and go to state 107
+    PLUS            shift and go to state 110
+    MINUS           shift and go to state 111
+
+
+state 75
+
+    (74) expressao_aritmetica -> expressao_multiplicativa .
+    (78) expressao_multiplicativa -> expressao_multiplicativa . TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> expressao_multiplicativa . DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> expressao_multiplicativa . MODULO expressao_multiplicativa
+
+    MAIOR           reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    MENOR           reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    NOT             reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    EQUAL           reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    PLUS            reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    MINUS           reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    AND             reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    OR              reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    $end            reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    RBRACE          reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    RPAREN          reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    SEMICOLON       reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    RBRACKETS       reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    COLON           reduce using rule 74 (expressao_aritmetica -> expressao_multiplicativa .)
+    TIMES           shift and go to state 112
+    DIVIDE          shift and go to state 113
+    MODULO          shift and go to state 114
+
+
+state 76
+
+    (82) expressao_unaria -> PLUS . expressao_unaria
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_unaria               shift and go to state 115
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 77
+
+    (83) expressao_unaria -> MINUS . expressao_unaria
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_unaria               shift and go to state 116
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 78
+
+    (77) expressao_multiplicativa -> expressao_unaria .
+
+    TIMES           reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    DIVIDE          reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    MODULO          reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    MAIOR           reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    MENOR           reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    NOT             reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    EQUAL           reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    PLUS            reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    MINUS           reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    AND             reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    OR              reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    $end            reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    RBRACE          reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    RPAREN          reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    SEMICOLON       reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    RBRACKETS       reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+    COLON           reduce using rule 77 (expressao_multiplicativa -> expressao_unaria .)
+
+
+state 79
+
+    (81) expressao_unaria -> expressao_postfix .
+
+    TIMES           reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    DIVIDE          reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    MODULO          reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    MAIOR           reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    MENOR           reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    NOT             reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    EQUAL           reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    PLUS            reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    MINUS           reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    AND             reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    OR              reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    $end            reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    RBRACE          reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    RPAREN          reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    SEMICOLON       reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    RBRACKETS       reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+    COLON           reduce using rule 81 (expressao_unaria -> expressao_postfix .)
+
+
+state 80
+
+    (84) expressao_postfix -> primaria .
+    (85) expressao_postfix -> primaria . LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> primaria . LPAREN argumentos RPAREN
+    (87) expressao_postfix -> primaria . DOT ID
+
+    TIMES           reduce using rule 84 (expressao_postfix -> primaria .)
+    DIVIDE          reduce using rule 84 (expressao_postfix -> primaria .)
+    MODULO          reduce using rule 84 (expressao_postfix -> primaria .)
+    MAIOR           reduce using rule 84 (expressao_postfix -> primaria .)
+    MENOR           reduce using rule 84 (expressao_postfix -> primaria .)
+    NOT             reduce using rule 84 (expressao_postfix -> primaria .)
+    EQUAL           reduce using rule 84 (expressao_postfix -> primaria .)
+    PLUS            reduce using rule 84 (expressao_postfix -> primaria .)
+    MINUS           reduce using rule 84 (expressao_postfix -> primaria .)
+    AND             reduce using rule 84 (expressao_postfix -> primaria .)
+    OR              reduce using rule 84 (expressao_postfix -> primaria .)
+    $end            reduce using rule 84 (expressao_postfix -> primaria .)
+    RBRACE          reduce using rule 84 (expressao_postfix -> primaria .)
+    RPAREN          reduce using rule 84 (expressao_postfix -> primaria .)
+    SEMICOLON       reduce using rule 84 (expressao_postfix -> primaria .)
+    RBRACKETS       reduce using rule 84 (expressao_postfix -> primaria .)
+    COLON           reduce using rule 84 (expressao_postfix -> primaria .)
+    LBRACKETS       shift and go to state 117
+    LPAREN          shift and go to state 118
+    DOT             shift and go to state 119
+
+
+state 81
+
+    (93) primaria -> LPAREN . expression RPAREN
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 120
+    atribuicao                     shift and go to state 37
+
+state 82
+
+    (91) primaria -> NUMERO .
+
+    LBRACKETS       reduce using rule 91 (primaria -> NUMERO .)
+    LPAREN          reduce using rule 91 (primaria -> NUMERO .)
+    DOT             reduce using rule 91 (primaria -> NUMERO .)
+    TIMES           reduce using rule 91 (primaria -> NUMERO .)
+    DIVIDE          reduce using rule 91 (primaria -> NUMERO .)
+    MODULO          reduce using rule 91 (primaria -> NUMERO .)
+    MAIOR           reduce using rule 91 (primaria -> NUMERO .)
+    MENOR           reduce using rule 91 (primaria -> NUMERO .)
+    NOT             reduce using rule 91 (primaria -> NUMERO .)
+    EQUAL           reduce using rule 91 (primaria -> NUMERO .)
+    PLUS            reduce using rule 91 (primaria -> NUMERO .)
+    MINUS           reduce using rule 91 (primaria -> NUMERO .)
+    AND             reduce using rule 91 (primaria -> NUMERO .)
+    OR              reduce using rule 91 (primaria -> NUMERO .)
+    $end            reduce using rule 91 (primaria -> NUMERO .)
+    RBRACE          reduce using rule 91 (primaria -> NUMERO .)
+    RPAREN          reduce using rule 91 (primaria -> NUMERO .)
+    SEMICOLON       reduce using rule 91 (primaria -> NUMERO .)
+    RBRACKETS       reduce using rule 91 (primaria -> NUMERO .)
+    COLON           reduce using rule 91 (primaria -> NUMERO .)
+
+
+state 83
+
+    (92) primaria -> VSTRING .
+
+    LBRACKETS       reduce using rule 92 (primaria -> VSTRING .)
+    LPAREN          reduce using rule 92 (primaria -> VSTRING .)
+    DOT             reduce using rule 92 (primaria -> VSTRING .)
+    TIMES           reduce using rule 92 (primaria -> VSTRING .)
+    DIVIDE          reduce using rule 92 (primaria -> VSTRING .)
+    MODULO          reduce using rule 92 (primaria -> VSTRING .)
+    MAIOR           reduce using rule 92 (primaria -> VSTRING .)
+    MENOR           reduce using rule 92 (primaria -> VSTRING .)
+    NOT             reduce using rule 92 (primaria -> VSTRING .)
+    EQUAL           reduce using rule 92 (primaria -> VSTRING .)
+    PLUS            reduce using rule 92 (primaria -> VSTRING .)
+    MINUS           reduce using rule 92 (primaria -> VSTRING .)
+    AND             reduce using rule 92 (primaria -> VSTRING .)
+    OR              reduce using rule 92 (primaria -> VSTRING .)
+    $end            reduce using rule 92 (primaria -> VSTRING .)
+    RBRACE          reduce using rule 92 (primaria -> VSTRING .)
+    RPAREN          reduce using rule 92 (primaria -> VSTRING .)
+    SEMICOLON       reduce using rule 92 (primaria -> VSTRING .)
+    RBRACKETS       reduce using rule 92 (primaria -> VSTRING .)
+    COLON           reduce using rule 92 (primaria -> VSTRING .)
+
+
+state 84
+
+    (33) atribuicao -> ID PLUS EQUAL . expressao_logica
+    (63) expressao_logica -> . expressao_relacional
+    (64) expressao_logica -> . NOT expressao_relacional
+    (65) expressao_logica -> . expressao_logica AND expressao_relacional
+    (66) expressao_logica -> . expressao_logica OR expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    NOT             shift and go to state 73
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_logica               shift and go to state 121
+    expressao_relacional           shift and go to state 72
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 85
+
+    (34) atribuicao -> ID MINUS EQUAL . expressao_logica
+    (63) expressao_logica -> . expressao_relacional
+    (64) expressao_logica -> . NOT expressao_relacional
+    (65) expressao_logica -> . expressao_logica AND expressao_relacional
+    (66) expressao_logica -> . expressao_logica OR expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    NOT             shift and go to state 73
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_logica               shift and go to state 122
+    expressao_relacional           shift and go to state 72
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 86
+
+    (35) atribuicao -> ID TIMES EQUAL . expressao_logica
+    (63) expressao_logica -> . expressao_relacional
+    (64) expressao_logica -> . NOT expressao_relacional
+    (65) expressao_logica -> . expressao_logica AND expressao_relacional
+    (66) expressao_logica -> . expressao_logica OR expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    NOT             shift and go to state 73
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_logica               shift and go to state 123
+    expressao_relacional           shift and go to state 72
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 87
+
+    (36) atribuicao -> ID DIVIDE EQUAL . expressao_logica
+    (63) expressao_logica -> . expressao_relacional
+    (64) expressao_logica -> . NOT expressao_relacional
+    (65) expressao_logica -> . expressao_logica AND expressao_relacional
+    (66) expressao_logica -> . expressao_logica OR expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    NOT             shift and go to state 73
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_logica               shift and go to state 124
+    expressao_relacional           shift and go to state 72
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 88
+
+    (37) atribuicao -> ID MODULO EQUAL . expressao_logica
+    (63) expressao_logica -> . expressao_relacional
+    (64) expressao_logica -> . NOT expressao_relacional
+    (65) expressao_logica -> . expressao_logica AND expressao_relacional
+    (66) expressao_logica -> . expressao_logica OR expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    NOT             shift and go to state 73
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_logica               shift and go to state 125
+    expressao_relacional           shift and go to state 72
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 89
+
+    (38) atribuicao -> ID AND EQUAL . expressao_logica
+    (63) expressao_logica -> . expressao_relacional
+    (64) expressao_logica -> . NOT expressao_relacional
+    (65) expressao_logica -> . expressao_logica AND expressao_relacional
+    (66) expressao_logica -> . expressao_logica OR expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    NOT             shift and go to state 73
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_logica               shift and go to state 126
+    expressao_relacional           shift and go to state 72
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 90
+
+    (39) atribuicao -> ID OR EQUAL . expressao_logica
+    (63) expressao_logica -> . expressao_relacional
+    (64) expressao_logica -> . NOT expressao_relacional
+    (65) expressao_logica -> . expressao_logica AND expressao_relacional
+    (66) expressao_logica -> . expressao_logica OR expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    NOT             shift and go to state 73
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_logica               shift and go to state 127
+    expressao_relacional           shift and go to state 72
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 91
+
+    (15) declaration_variable -> type ID EQUAL LPAREN expression . RPAREN
+
+    RPAREN          shift and go to state 128
+
+
+state 92
+
+    (25) parameter -> type ID .
+    (26) parameter -> type ID . LBRACKETS RBRACKETS
+
+    COMMA           reduce using rule 25 (parameter -> type ID .)
+    RPAREN          reduce using rule 25 (parameter -> type ID .)
+    LBRACKETS       shift and go to state 129
+
+
+state 93
+
+    (27) parameter -> type ELLIPSIS . ID
+
+    ID              shift and go to state 130
+
+
+state 94
+
+    (21) declaration_function -> type ID LPAREN parameters RPAREN . block
+    (28) block -> . LBRACE declaration RBRACE
+
+    LBRACE          shift and go to state 97
+
+    block                          shift and go to state 131
+
+state 95
+
+    (23) parameters -> parameter COMMA . parameters
+    (22) parameters -> . parameter
+    (23) parameters -> . parameter COMMA parameters
+    (24) parameters -> . empty
+    (25) parameter -> . type ID
+    (26) parameter -> . type ID LBRACKETS RBRACKETS
+    (27) parameter -> . type ELLIPSIS ID
+    (49) empty -> .
+    (16) type -> . INT
+    (17) type -> . FLOAT
+    (18) type -> . DOUBLE
+    (19) type -> . CHAR
+    (20) type -> . BOOL
+
+    RPAREN          reduce using rule 49 (empty -> .)
+    INT             shift and go to state 18
+    FLOAT           shift and go to state 19
+    DOUBLE          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOL            shift and go to state 22
+
+    parameter                      shift and go to state 64
+    parameters                     shift and go to state 132
+    empty                          shift and go to state 65
+    type                           shift and go to state 62
+
+state 96
+
+    (47) if_structure -> IF LPAREN expression RPAREN block .
+    (48) if_structure -> IF LPAREN expression RPAREN block . ELSE block
+
+    $end            reduce using rule 47 (if_structure -> IF LPAREN expression RPAREN block .)
+    RBRACE          reduce using rule 47 (if_structure -> IF LPAREN expression RPAREN block .)
+    ELSE            shift and go to state 133
+
+
+state 97
+
+    (28) block -> LBRACE . declaration RBRACE
+    (2) declaration -> . declaration_variable
+    (3) declaration -> . declaration_function
+    (4) declaration -> . declaration_structure
+    (5) declaration -> . comment
+    (6) declaration_variable -> . type ID
+    (7) declaration_variable -> . ID EQUAL NUMERO
+    (8) declaration_variable -> . ID EQUAL ID
+    (9) declaration_variable -> . ID EQUAL VSTRING
+    (10) declaration_variable -> . ID EQUAL expression
+    (11) declaration_variable -> . type ID EQUAL expression
+    (12) declaration_variable -> . type ID EQUAL NUMERO
+    (13) declaration_variable -> . type ID EQUAL ID
+    (14) declaration_variable -> . type ID EQUAL VSTRING
+    (15) declaration_variable -> . type ID EQUAL LPAREN expression RPAREN
+    (21) declaration_function -> . type ID LPAREN parameters RPAREN block
+    (40) declaration_structure -> . if_structure
+    (41) declaration_structure -> . while_structure
+    (42) declaration_structure -> . for_structure
+    (43) declaration_structure -> . switch_structure
+    (44) declaration_structure -> . break_structure
+    (45) declaration_structure -> . continue_structure
+    (46) declaration_structure -> . return_structure
+    (29) comment -> . SINGLE_LINE_COMMENT
+    (30) comment -> . MULTI_LINE_COMMENT
+    (16) type -> . INT
+    (17) type -> . FLOAT
+    (18) type -> . DOUBLE
+    (19) type -> . CHAR
+    (20) type -> . BOOL
+    (47) if_structure -> . IF LPAREN expression RPAREN block
+    (48) if_structure -> . IF LPAREN expression RPAREN block ELSE block
+    (50) while_structure -> . WHILE LPAREN expression RPAREN block
+    (51) for_structure -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block
+    (52) switch_structure -> . SWITCH LPAREN expression RPAREN case_list
+    (53) break_structure -> . BREAK
+    (54) continue_structure -> . CONTINUE
+    (55) return_structure -> . RETURN expression
+
+    ID              shift and go to state 8
+    SINGLE_LINE_COMMENT shift and go to state 16
+    MULTI_LINE_COMMENT shift and go to state 17
+    INT             shift and go to state 18
+    FLOAT           shift and go to state 19
+    DOUBLE          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOL            shift and go to state 22
+    IF              shift and go to state 23
+    WHILE           shift and go to state 24
+    FOR             shift and go to state 25
+    SWITCH          shift and go to state 26
+    BREAK           shift and go to state 27
+    CONTINUE        shift and go to state 28
+    RETURN          shift and go to state 29
+
+    declaration                    shift and go to state 134
+    declaration_variable           shift and go to state 3
+    declaration_function           shift and go to state 4
+    declaration_structure          shift and go to state 5
+    comment                        shift and go to state 6
+    type                           shift and go to state 7
+    if_structure                   shift and go to state 9
+    while_structure                shift and go to state 10
+    for_structure                  shift and go to state 11
+    switch_structure               shift and go to state 12
+    break_structure                shift and go to state 13
+    continue_structure             shift and go to state 14
+    return_structure               shift and go to state 15
+
+state 98
+
+    (50) while_structure -> WHILE LPAREN expression RPAREN block .
+
+    $end            reduce using rule 50 (while_structure -> WHILE LPAREN expression RPAREN block .)
+    RBRACE          reduce using rule 50 (while_structure -> WHILE LPAREN expression RPAREN block .)
+
+
+state 99
+
+    (51) for_structure -> FOR LPAREN expression SEMICOLON expression . SEMICOLON expression RPAREN block
+
+    SEMICOLON       shift and go to state 135
+
+
+state 100
+
+    (52) switch_structure -> SWITCH LPAREN expression RPAREN case_list .
+
+    $end            reduce using rule 52 (switch_structure -> SWITCH LPAREN expression RPAREN case_list .)
+    RBRACE          reduce using rule 52 (switch_structure -> SWITCH LPAREN expression RPAREN case_list .)
+
+
+state 101
+
+    (56) case_list -> case_declaration_star .
+    (58) case_declaration_star -> case_declaration_star . case_declaration
+    (59) case_declaration -> . CASE expression COLON block
+    (60) case_declaration -> . DEFAULT COLON block
+
+    $end            reduce using rule 56 (case_list -> case_declaration_star .)
+    RBRACE          reduce using rule 56 (case_list -> case_declaration_star .)
+    CASE            shift and go to state 137
+    DEFAULT         shift and go to state 138
+
+    case_declaration               shift and go to state 136
+
+state 102
+
+    (57) case_declaration_star -> empty .
+
+    CASE            reduce using rule 57 (case_declaration_star -> empty .)
+    DEFAULT         reduce using rule 57 (case_declaration_star -> empty .)
+    $end            reduce using rule 57 (case_declaration_star -> empty .)
+    RBRACE          reduce using rule 57 (case_declaration_star -> empty .)
+
+
+state 103
+
+    (65) expressao_logica -> expressao_logica AND . expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_relacional           shift and go to state 139
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 104
+
+    (66) expressao_logica -> expressao_logica OR . expressao_relacional
+    (67) expressao_relacional -> . expressao_aritmetica
+    (68) expressao_relacional -> . expressao_aritmetica MAIOR expressao_aritmetica
+    (69) expressao_relacional -> . expressao_aritmetica MAIOR EQUAL expressao_aritmetica
+    (70) expressao_relacional -> . expressao_aritmetica MENOR expressao_aritmetica
+    (71) expressao_relacional -> . expressao_aritmetica MENOR EQUAL expressao_aritmetica
+    (72) expressao_relacional -> . expressao_aritmetica NOT EQUAL expressao_aritmetica
+    (73) expressao_relacional -> . expressao_aritmetica EQUAL EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_relacional           shift and go to state 140
+    expressao_aritmetica           shift and go to state 74
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 105
+
+    (64) expressao_logica -> NOT expressao_relacional .
+
+    AND             reduce using rule 64 (expressao_logica -> NOT expressao_relacional .)
+    OR              reduce using rule 64 (expressao_logica -> NOT expressao_relacional .)
+    $end            reduce using rule 64 (expressao_logica -> NOT expressao_relacional .)
+    RBRACE          reduce using rule 64 (expressao_logica -> NOT expressao_relacional .)
+    RPAREN          reduce using rule 64 (expressao_logica -> NOT expressao_relacional .)
+    SEMICOLON       reduce using rule 64 (expressao_logica -> NOT expressao_relacional .)
+    RBRACKETS       reduce using rule 64 (expressao_logica -> NOT expressao_relacional .)
+    COLON           reduce using rule 64 (expressao_logica -> NOT expressao_relacional .)
+
+
+state 106
+
+    (68) expressao_relacional -> expressao_aritmetica MAIOR . expressao_aritmetica
+    (69) expressao_relacional -> expressao_aritmetica MAIOR . EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    EQUAL           shift and go to state 142
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_aritmetica           shift and go to state 141
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 107
+
+    (73) expressao_relacional -> expressao_aritmetica EQUAL . EQUAL expressao_aritmetica
+
+    EQUAL           shift and go to state 143
+
+
+state 108
+
+    (70) expressao_relacional -> expressao_aritmetica MENOR . expressao_aritmetica
+    (71) expressao_relacional -> expressao_aritmetica MENOR . EQUAL expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    EQUAL           shift and go to state 145
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_aritmetica           shift and go to state 144
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 109
+
+    (72) expressao_relacional -> expressao_aritmetica NOT . EQUAL expressao_aritmetica
+
+    EQUAL           shift and go to state 146
+
+
+state 110
+
+    (75) expressao_aritmetica -> expressao_aritmetica PLUS . expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_aritmetica           shift and go to state 147
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 111
+
+    (76) expressao_aritmetica -> expressao_aritmetica MINUS . expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_aritmetica           shift and go to state 148
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 112
+
+    (78) expressao_multiplicativa -> expressao_multiplicativa TIMES . expressao_multiplicativa
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_multiplicativa       shift and go to state 149
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 113
+
+    (79) expressao_multiplicativa -> expressao_multiplicativa DIVIDE . expressao_multiplicativa
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_multiplicativa       shift and go to state 150
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 114
+
+    (80) expressao_multiplicativa -> expressao_multiplicativa MODULO . expressao_multiplicativa
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_multiplicativa       shift and go to state 151
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 115
+
+    (82) expressao_unaria -> PLUS expressao_unaria .
+
+    TIMES           reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    DIVIDE          reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    MODULO          reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    MAIOR           reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    MENOR           reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    NOT             reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    EQUAL           reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    PLUS            reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    MINUS           reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    AND             reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    OR              reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    $end            reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    RBRACE          reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    RPAREN          reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    SEMICOLON       reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    RBRACKETS       reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+    COLON           reduce using rule 82 (expressao_unaria -> PLUS expressao_unaria .)
+
+
+state 116
+
+    (83) expressao_unaria -> MINUS expressao_unaria .
+
+    TIMES           reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    DIVIDE          reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    MODULO          reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    MAIOR           reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    MENOR           reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    NOT             reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    EQUAL           reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    PLUS            reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    MINUS           reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    AND             reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    OR              reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    $end            reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    RBRACE          reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    RPAREN          reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    SEMICOLON       reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    RBRACKETS       reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+    COLON           reduce using rule 83 (expressao_unaria -> MINUS expressao_unaria .)
+
+
+state 117
+
+    (85) expressao_postfix -> primaria LBRACKETS . expression RBRACKETS
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 152
+    atribuicao                     shift and go to state 37
+
+state 118
+
+    (86) expressao_postfix -> primaria LPAREN . argumentos RPAREN
+    (88) argumentos -> . array
+    (89) argumentos -> . empty
+    (61) array -> . ID LBRACKETS expression RBRACKETS
+    (62) array -> . ID LBRACKETS RBRACKETS
+    (49) empty -> .
+
+    ID              shift and go to state 156
+    RPAREN          reduce using rule 49 (empty -> .)
+
+    argumentos                     shift and go to state 153
+    array                          shift and go to state 154
+    empty                          shift and go to state 155
+
+state 119
+
+    (87) expressao_postfix -> primaria DOT . ID
+
+    ID              shift and go to state 157
+
+
+state 120
+
+    (93) primaria -> LPAREN expression . RPAREN
+
+    RPAREN          shift and go to state 158
+
+
+state 121
+
+    (33) atribuicao -> ID PLUS EQUAL expressao_logica .
+    (65) expressao_logica -> expressao_logica . AND expressao_relacional
+    (66) expressao_logica -> expressao_logica . OR expressao_relacional
+
+    $end            reduce using rule 33 (atribuicao -> ID PLUS EQUAL expressao_logica .)
+    RBRACE          reduce using rule 33 (atribuicao -> ID PLUS EQUAL expressao_logica .)
+    RPAREN          reduce using rule 33 (atribuicao -> ID PLUS EQUAL expressao_logica .)
+    SEMICOLON       reduce using rule 33 (atribuicao -> ID PLUS EQUAL expressao_logica .)
+    RBRACKETS       reduce using rule 33 (atribuicao -> ID PLUS EQUAL expressao_logica .)
+    COLON           reduce using rule 33 (atribuicao -> ID PLUS EQUAL expressao_logica .)
+    AND             shift and go to state 103
+    OR              shift and go to state 104
+
+
+state 122
+
+    (34) atribuicao -> ID MINUS EQUAL expressao_logica .
+    (65) expressao_logica -> expressao_logica . AND expressao_relacional
+    (66) expressao_logica -> expressao_logica . OR expressao_relacional
+
+    $end            reduce using rule 34 (atribuicao -> ID MINUS EQUAL expressao_logica .)
+    RBRACE          reduce using rule 34 (atribuicao -> ID MINUS EQUAL expressao_logica .)
+    RPAREN          reduce using rule 34 (atribuicao -> ID MINUS EQUAL expressao_logica .)
+    SEMICOLON       reduce using rule 34 (atribuicao -> ID MINUS EQUAL expressao_logica .)
+    RBRACKETS       reduce using rule 34 (atribuicao -> ID MINUS EQUAL expressao_logica .)
+    COLON           reduce using rule 34 (atribuicao -> ID MINUS EQUAL expressao_logica .)
+    AND             shift and go to state 103
+    OR              shift and go to state 104
+
+
+state 123
+
+    (35) atribuicao -> ID TIMES EQUAL expressao_logica .
+    (65) expressao_logica -> expressao_logica . AND expressao_relacional
+    (66) expressao_logica -> expressao_logica . OR expressao_relacional
+
+    $end            reduce using rule 35 (atribuicao -> ID TIMES EQUAL expressao_logica .)
+    RBRACE          reduce using rule 35 (atribuicao -> ID TIMES EQUAL expressao_logica .)
+    RPAREN          reduce using rule 35 (atribuicao -> ID TIMES EQUAL expressao_logica .)
+    SEMICOLON       reduce using rule 35 (atribuicao -> ID TIMES EQUAL expressao_logica .)
+    RBRACKETS       reduce using rule 35 (atribuicao -> ID TIMES EQUAL expressao_logica .)
+    COLON           reduce using rule 35 (atribuicao -> ID TIMES EQUAL expressao_logica .)
+    AND             shift and go to state 103
+    OR              shift and go to state 104
+
+
+state 124
+
+    (36) atribuicao -> ID DIVIDE EQUAL expressao_logica .
+    (65) expressao_logica -> expressao_logica . AND expressao_relacional
+    (66) expressao_logica -> expressao_logica . OR expressao_relacional
+
+    $end            reduce using rule 36 (atribuicao -> ID DIVIDE EQUAL expressao_logica .)
+    RBRACE          reduce using rule 36 (atribuicao -> ID DIVIDE EQUAL expressao_logica .)
+    RPAREN          reduce using rule 36 (atribuicao -> ID DIVIDE EQUAL expressao_logica .)
+    SEMICOLON       reduce using rule 36 (atribuicao -> ID DIVIDE EQUAL expressao_logica .)
+    RBRACKETS       reduce using rule 36 (atribuicao -> ID DIVIDE EQUAL expressao_logica .)
+    COLON           reduce using rule 36 (atribuicao -> ID DIVIDE EQUAL expressao_logica .)
+    AND             shift and go to state 103
+    OR              shift and go to state 104
+
+
+state 125
+
+    (37) atribuicao -> ID MODULO EQUAL expressao_logica .
+    (65) expressao_logica -> expressao_logica . AND expressao_relacional
+    (66) expressao_logica -> expressao_logica . OR expressao_relacional
+
+    $end            reduce using rule 37 (atribuicao -> ID MODULO EQUAL expressao_logica .)
+    RBRACE          reduce using rule 37 (atribuicao -> ID MODULO EQUAL expressao_logica .)
+    RPAREN          reduce using rule 37 (atribuicao -> ID MODULO EQUAL expressao_logica .)
+    SEMICOLON       reduce using rule 37 (atribuicao -> ID MODULO EQUAL expressao_logica .)
+    RBRACKETS       reduce using rule 37 (atribuicao -> ID MODULO EQUAL expressao_logica .)
+    COLON           reduce using rule 37 (atribuicao -> ID MODULO EQUAL expressao_logica .)
+    AND             shift and go to state 103
+    OR              shift and go to state 104
+
+
+state 126
+
+    (38) atribuicao -> ID AND EQUAL expressao_logica .
+    (65) expressao_logica -> expressao_logica . AND expressao_relacional
+    (66) expressao_logica -> expressao_logica . OR expressao_relacional
+
+    $end            reduce using rule 38 (atribuicao -> ID AND EQUAL expressao_logica .)
+    RBRACE          reduce using rule 38 (atribuicao -> ID AND EQUAL expressao_logica .)
+    RPAREN          reduce using rule 38 (atribuicao -> ID AND EQUAL expressao_logica .)
+    SEMICOLON       reduce using rule 38 (atribuicao -> ID AND EQUAL expressao_logica .)
+    RBRACKETS       reduce using rule 38 (atribuicao -> ID AND EQUAL expressao_logica .)
+    COLON           reduce using rule 38 (atribuicao -> ID AND EQUAL expressao_logica .)
+    AND             shift and go to state 103
+    OR              shift and go to state 104
+
+
+state 127
+
+    (39) atribuicao -> ID OR EQUAL expressao_logica .
+    (65) expressao_logica -> expressao_logica . AND expressao_relacional
+    (66) expressao_logica -> expressao_logica . OR expressao_relacional
+
+    $end            reduce using rule 39 (atribuicao -> ID OR EQUAL expressao_logica .)
+    RBRACE          reduce using rule 39 (atribuicao -> ID OR EQUAL expressao_logica .)
+    RPAREN          reduce using rule 39 (atribuicao -> ID OR EQUAL expressao_logica .)
+    SEMICOLON       reduce using rule 39 (atribuicao -> ID OR EQUAL expressao_logica .)
+    RBRACKETS       reduce using rule 39 (atribuicao -> ID OR EQUAL expressao_logica .)
+    COLON           reduce using rule 39 (atribuicao -> ID OR EQUAL expressao_logica .)
+    AND             shift and go to state 103
+    OR              shift and go to state 104
+
+
+state 128
+
+    (15) declaration_variable -> type ID EQUAL LPAREN expression RPAREN .
+
+    $end            reduce using rule 15 (declaration_variable -> type ID EQUAL LPAREN expression RPAREN .)
+    RBRACE          reduce using rule 15 (declaration_variable -> type ID EQUAL LPAREN expression RPAREN .)
+
+
+state 129
+
+    (26) parameter -> type ID LBRACKETS . RBRACKETS
+
+    RBRACKETS       shift and go to state 159
+
+
+state 130
+
+    (27) parameter -> type ELLIPSIS ID .
+
+    COMMA           reduce using rule 27 (parameter -> type ELLIPSIS ID .)
+    RPAREN          reduce using rule 27 (parameter -> type ELLIPSIS ID .)
+
+
+state 131
+
+    (21) declaration_function -> type ID LPAREN parameters RPAREN block .
+
+    $end            reduce using rule 21 (declaration_function -> type ID LPAREN parameters RPAREN block .)
+    RBRACE          reduce using rule 21 (declaration_function -> type ID LPAREN parameters RPAREN block .)
+
+
+state 132
+
+    (23) parameters -> parameter COMMA parameters .
+
+    RPAREN          reduce using rule 23 (parameters -> parameter COMMA parameters .)
+
+
+state 133
+
+    (48) if_structure -> IF LPAREN expression RPAREN block ELSE . block
+    (28) block -> . LBRACE declaration RBRACE
+
+    LBRACE          shift and go to state 97
+
+    block                          shift and go to state 160
+
+state 134
+
+    (28) block -> LBRACE declaration . RBRACE
+
+    RBRACE          shift and go to state 161
+
+
+state 135
+
+    (51) for_structure -> FOR LPAREN expression SEMICOLON expression SEMICOLON . expression RPAREN block
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 162
+    atribuicao                     shift and go to state 37
+
+state 136
+
+    (58) case_declaration_star -> case_declaration_star case_declaration .
+
+    CASE            reduce using rule 58 (case_declaration_star -> case_declaration_star case_declaration .)
+    DEFAULT         reduce using rule 58 (case_declaration_star -> case_declaration_star case_declaration .)
+    $end            reduce using rule 58 (case_declaration_star -> case_declaration_star case_declaration .)
+    RBRACE          reduce using rule 58 (case_declaration_star -> case_declaration_star case_declaration .)
+
+
+state 137
+
+    (59) case_declaration -> CASE . expression COLON block
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 163
+    atribuicao                     shift and go to state 37
+
+state 138
+
+    (60) case_declaration -> DEFAULT . COLON block
+
+    COLON           shift and go to state 164
+
+
+state 139
+
+    (65) expressao_logica -> expressao_logica AND expressao_relacional .
+
+    AND             reduce using rule 65 (expressao_logica -> expressao_logica AND expressao_relacional .)
+    OR              reduce using rule 65 (expressao_logica -> expressao_logica AND expressao_relacional .)
+    $end            reduce using rule 65 (expressao_logica -> expressao_logica AND expressao_relacional .)
+    RBRACE          reduce using rule 65 (expressao_logica -> expressao_logica AND expressao_relacional .)
+    RPAREN          reduce using rule 65 (expressao_logica -> expressao_logica AND expressao_relacional .)
+    SEMICOLON       reduce using rule 65 (expressao_logica -> expressao_logica AND expressao_relacional .)
+    RBRACKETS       reduce using rule 65 (expressao_logica -> expressao_logica AND expressao_relacional .)
+    COLON           reduce using rule 65 (expressao_logica -> expressao_logica AND expressao_relacional .)
+
+
+state 140
+
+    (66) expressao_logica -> expressao_logica OR expressao_relacional .
+
+    AND             reduce using rule 66 (expressao_logica -> expressao_logica OR expressao_relacional .)
+    OR              reduce using rule 66 (expressao_logica -> expressao_logica OR expressao_relacional .)
+    $end            reduce using rule 66 (expressao_logica -> expressao_logica OR expressao_relacional .)
+    RBRACE          reduce using rule 66 (expressao_logica -> expressao_logica OR expressao_relacional .)
+    RPAREN          reduce using rule 66 (expressao_logica -> expressao_logica OR expressao_relacional .)
+    SEMICOLON       reduce using rule 66 (expressao_logica -> expressao_logica OR expressao_relacional .)
+    RBRACKETS       reduce using rule 66 (expressao_logica -> expressao_logica OR expressao_relacional .)
+    COLON           reduce using rule 66 (expressao_logica -> expressao_logica OR expressao_relacional .)
+
+
+state 141
+
+    (68) expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica .
+    (75) expressao_aritmetica -> expressao_aritmetica . PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> expressao_aritmetica . MINUS expressao_aritmetica
+
+    AND             reduce using rule 68 (expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica .)
+    OR              reduce using rule 68 (expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica .)
+    $end            reduce using rule 68 (expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica .)
+    RBRACE          reduce using rule 68 (expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica .)
+    RPAREN          reduce using rule 68 (expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica .)
+    SEMICOLON       reduce using rule 68 (expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica .)
+    RBRACKETS       reduce using rule 68 (expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica .)
+    COLON           reduce using rule 68 (expressao_relacional -> expressao_aritmetica MAIOR expressao_aritmetica .)
+    PLUS            shift and go to state 110
+    MINUS           shift and go to state 111
+
+
+state 142
+
+    (69) expressao_relacional -> expressao_aritmetica MAIOR EQUAL . expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_aritmetica           shift and go to state 165
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 143
+
+    (73) expressao_relacional -> expressao_aritmetica EQUAL EQUAL . expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_aritmetica           shift and go to state 166
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 144
+
+    (70) expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica .
+    (75) expressao_aritmetica -> expressao_aritmetica . PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> expressao_aritmetica . MINUS expressao_aritmetica
+
+    AND             reduce using rule 70 (expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica .)
+    OR              reduce using rule 70 (expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica .)
+    $end            reduce using rule 70 (expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica .)
+    RBRACE          reduce using rule 70 (expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica .)
+    RPAREN          reduce using rule 70 (expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica .)
+    SEMICOLON       reduce using rule 70 (expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica .)
+    RBRACKETS       reduce using rule 70 (expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica .)
+    COLON           reduce using rule 70 (expressao_relacional -> expressao_aritmetica MENOR expressao_aritmetica .)
+    PLUS            shift and go to state 110
+    MINUS           shift and go to state 111
+
+
+state 145
+
+    (71) expressao_relacional -> expressao_aritmetica MENOR EQUAL . expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_aritmetica           shift and go to state 167
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 146
+
+    (72) expressao_relacional -> expressao_aritmetica NOT EQUAL . expressao_aritmetica
+    (74) expressao_aritmetica -> . expressao_multiplicativa
+    (75) expressao_aritmetica -> . expressao_aritmetica PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> . expressao_aritmetica MINUS expressao_aritmetica
+    (77) expressao_multiplicativa -> . expressao_unaria
+    (78) expressao_multiplicativa -> . expressao_multiplicativa TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> . expressao_multiplicativa DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> . expressao_multiplicativa MODULO expressao_multiplicativa
+    (81) expressao_unaria -> . expressao_postfix
+    (82) expressao_unaria -> . PLUS expressao_unaria
+    (83) expressao_unaria -> . MINUS expressao_unaria
+    (84) expressao_postfix -> . primaria
+    (85) expressao_postfix -> . primaria LBRACKETS expression RBRACKETS
+    (86) expressao_postfix -> . primaria LPAREN argumentos RPAREN
+    (87) expressao_postfix -> . primaria DOT ID
+    (90) primaria -> . ID
+    (91) primaria -> . NUMERO
+    (92) primaria -> . VSTRING
+    (93) primaria -> . LPAREN expression RPAREN
+
+    PLUS            shift and go to state 76
+    MINUS           shift and go to state 77
+    ID              shift and go to state 70
+    NUMERO          shift and go to state 82
+    VSTRING         shift and go to state 83
+    LPAREN          shift and go to state 81
+
+    expressao_aritmetica           shift and go to state 168
+    expressao_multiplicativa       shift and go to state 75
+    expressao_unaria               shift and go to state 78
+    expressao_postfix              shift and go to state 79
+    primaria                       shift and go to state 80
+
+state 147
+
+    (75) expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .
+    (75) expressao_aritmetica -> expressao_aritmetica . PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> expressao_aritmetica . MINUS expressao_aritmetica
+
+    MAIOR           reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    MENOR           reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    NOT             reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    EQUAL           reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    PLUS            reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    MINUS           reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    AND             reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    OR              reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    $end            reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    RBRACE          reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    RPAREN          reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    SEMICOLON       reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    RBRACKETS       reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+    COLON           reduce using rule 75 (expressao_aritmetica -> expressao_aritmetica PLUS expressao_aritmetica .)
+
+  ! PLUS            [ shift and go to state 110 ]
+  ! MINUS           [ shift and go to state 111 ]
+
+
+state 148
+
+    (76) expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .
+    (75) expressao_aritmetica -> expressao_aritmetica . PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> expressao_aritmetica . MINUS expressao_aritmetica
+
+    MAIOR           reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    MENOR           reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    NOT             reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    EQUAL           reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    PLUS            reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    MINUS           reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    AND             reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    OR              reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    $end            reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    RBRACE          reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    RPAREN          reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    SEMICOLON       reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    RBRACKETS       reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+    COLON           reduce using rule 76 (expressao_aritmetica -> expressao_aritmetica MINUS expressao_aritmetica .)
+
+  ! PLUS            [ shift and go to state 110 ]
+  ! MINUS           [ shift and go to state 111 ]
+
+
+state 149
+
+    (78) expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .
+    (78) expressao_multiplicativa -> expressao_multiplicativa . TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> expressao_multiplicativa . DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> expressao_multiplicativa . MODULO expressao_multiplicativa
+
+    TIMES           reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    DIVIDE          reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    MODULO          reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    MAIOR           reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    MENOR           reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    NOT             reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    EQUAL           reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    PLUS            reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    MINUS           reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    AND             reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    OR              reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    $end            reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    RBRACE          reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    RPAREN          reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    SEMICOLON       reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    RBRACKETS       reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+    COLON           reduce using rule 78 (expressao_multiplicativa -> expressao_multiplicativa TIMES expressao_multiplicativa .)
+
+  ! TIMES           [ shift and go to state 112 ]
+  ! DIVIDE          [ shift and go to state 113 ]
+  ! MODULO          [ shift and go to state 114 ]
+
+
+state 150
+
+    (79) expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .
+    (78) expressao_multiplicativa -> expressao_multiplicativa . TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> expressao_multiplicativa . DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> expressao_multiplicativa . MODULO expressao_multiplicativa
+
+    TIMES           reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    DIVIDE          reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    MODULO          reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    MAIOR           reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    MENOR           reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    NOT             reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    EQUAL           reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    PLUS            reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    MINUS           reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    AND             reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    OR              reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    $end            reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    RBRACE          reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    RPAREN          reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    SEMICOLON       reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    RBRACKETS       reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+    COLON           reduce using rule 79 (expressao_multiplicativa -> expressao_multiplicativa DIVIDE expressao_multiplicativa .)
+
+  ! TIMES           [ shift and go to state 112 ]
+  ! DIVIDE          [ shift and go to state 113 ]
+  ! MODULO          [ shift and go to state 114 ]
+
+
+state 151
+
+    (80) expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .
+    (78) expressao_multiplicativa -> expressao_multiplicativa . TIMES expressao_multiplicativa
+    (79) expressao_multiplicativa -> expressao_multiplicativa . DIVIDE expressao_multiplicativa
+    (80) expressao_multiplicativa -> expressao_multiplicativa . MODULO expressao_multiplicativa
+
+    TIMES           reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    DIVIDE          reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    MODULO          reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    MAIOR           reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    MENOR           reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    NOT             reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    EQUAL           reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    PLUS            reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    MINUS           reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    AND             reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    OR              reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    $end            reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    RBRACE          reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    RPAREN          reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    SEMICOLON       reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    RBRACKETS       reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+    COLON           reduce using rule 80 (expressao_multiplicativa -> expressao_multiplicativa MODULO expressao_multiplicativa .)
+
+  ! TIMES           [ shift and go to state 112 ]
+  ! DIVIDE          [ shift and go to state 113 ]
+  ! MODULO          [ shift and go to state 114 ]
+
+
+state 152
+
+    (85) expressao_postfix -> primaria LBRACKETS expression . RBRACKETS
+
+    RBRACKETS       shift and go to state 169
+
+
+state 153
+
+    (86) expressao_postfix -> primaria LPAREN argumentos . RPAREN
+
+    RPAREN          shift and go to state 170
+
+
+state 154
+
+    (88) argumentos -> array .
+
+    RPAREN          reduce using rule 88 (argumentos -> array .)
+
+
+state 155
+
+    (89) argumentos -> empty .
+
+    RPAREN          reduce using rule 89 (argumentos -> empty .)
+
+
+state 156
+
+    (61) array -> ID . LBRACKETS expression RBRACKETS
+    (62) array -> ID . LBRACKETS RBRACKETS
+
+    LBRACKETS       shift and go to state 171
+
+
+state 157
+
+    (87) expressao_postfix -> primaria DOT ID .
+
+    TIMES           reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    DIVIDE          reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    MODULO          reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    MAIOR           reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    MENOR           reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    NOT             reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    EQUAL           reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    PLUS            reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    MINUS           reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    AND             reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    OR              reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    $end            reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    RBRACE          reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    RPAREN          reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    SEMICOLON       reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    RBRACKETS       reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+    COLON           reduce using rule 87 (expressao_postfix -> primaria DOT ID .)
+
+
+state 158
+
+    (93) primaria -> LPAREN expression RPAREN .
+
+    LBRACKETS       reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    LPAREN          reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    DOT             reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    MODULO          reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    MAIOR           reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    MENOR           reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    NOT             reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    EQUAL           reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    AND             reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    OR              reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    $end            reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    RBRACE          reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    SEMICOLON       reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    RBRACKETS       reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+    COLON           reduce using rule 93 (primaria -> LPAREN expression RPAREN .)
+
+
+state 159
+
+    (26) parameter -> type ID LBRACKETS RBRACKETS .
+
+    COMMA           reduce using rule 26 (parameter -> type ID LBRACKETS RBRACKETS .)
+    RPAREN          reduce using rule 26 (parameter -> type ID LBRACKETS RBRACKETS .)
+
+
+state 160
+
+    (48) if_structure -> IF LPAREN expression RPAREN block ELSE block .
+
+    $end            reduce using rule 48 (if_structure -> IF LPAREN expression RPAREN block ELSE block .)
+    RBRACE          reduce using rule 48 (if_structure -> IF LPAREN expression RPAREN block ELSE block .)
+
+
+state 161
+
+    (28) block -> LBRACE declaration RBRACE .
+
+    ELSE            reduce using rule 28 (block -> LBRACE declaration RBRACE .)
+    $end            reduce using rule 28 (block -> LBRACE declaration RBRACE .)
+    RBRACE          reduce using rule 28 (block -> LBRACE declaration RBRACE .)
+    CASE            reduce using rule 28 (block -> LBRACE declaration RBRACE .)
+    DEFAULT         reduce using rule 28 (block -> LBRACE declaration RBRACE .)
+
+
+state 162
+
+    (51) for_structure -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression . RPAREN block
+
+    RPAREN          shift and go to state 172
+
+
+state 163
+
+    (59) case_declaration -> CASE expression . COLON block
+
+    COLON           shift and go to state 173
+
+
+state 164
+
+    (60) case_declaration -> DEFAULT COLON . block
+    (28) block -> . LBRACE declaration RBRACE
+
+    LBRACE          shift and go to state 97
+
+    block                          shift and go to state 174
+
+state 165
+
+    (69) expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica .
+    (75) expressao_aritmetica -> expressao_aritmetica . PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> expressao_aritmetica . MINUS expressao_aritmetica
+
+    AND             reduce using rule 69 (expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica .)
+    OR              reduce using rule 69 (expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica .)
+    $end            reduce using rule 69 (expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica .)
+    RBRACE          reduce using rule 69 (expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica .)
+    RPAREN          reduce using rule 69 (expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica .)
+    SEMICOLON       reduce using rule 69 (expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica .)
+    RBRACKETS       reduce using rule 69 (expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica .)
+    COLON           reduce using rule 69 (expressao_relacional -> expressao_aritmetica MAIOR EQUAL expressao_aritmetica .)
+    PLUS            shift and go to state 110
+    MINUS           shift and go to state 111
+
+
+state 166
+
+    (73) expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica .
+    (75) expressao_aritmetica -> expressao_aritmetica . PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> expressao_aritmetica . MINUS expressao_aritmetica
+
+    AND             reduce using rule 73 (expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica .)
+    OR              reduce using rule 73 (expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica .)
+    $end            reduce using rule 73 (expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica .)
+    RBRACE          reduce using rule 73 (expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica .)
+    RPAREN          reduce using rule 73 (expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica .)
+    SEMICOLON       reduce using rule 73 (expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica .)
+    RBRACKETS       reduce using rule 73 (expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica .)
+    COLON           reduce using rule 73 (expressao_relacional -> expressao_aritmetica EQUAL EQUAL expressao_aritmetica .)
+    PLUS            shift and go to state 110
+    MINUS           shift and go to state 111
+
+
+state 167
+
+    (71) expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica .
+    (75) expressao_aritmetica -> expressao_aritmetica . PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> expressao_aritmetica . MINUS expressao_aritmetica
+
+    AND             reduce using rule 71 (expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica .)
+    OR              reduce using rule 71 (expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica .)
+    $end            reduce using rule 71 (expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica .)
+    RBRACE          reduce using rule 71 (expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica .)
+    RPAREN          reduce using rule 71 (expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica .)
+    SEMICOLON       reduce using rule 71 (expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica .)
+    RBRACKETS       reduce using rule 71 (expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica .)
+    COLON           reduce using rule 71 (expressao_relacional -> expressao_aritmetica MENOR EQUAL expressao_aritmetica .)
+    PLUS            shift and go to state 110
+    MINUS           shift and go to state 111
+
+
+state 168
+
+    (72) expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica .
+    (75) expressao_aritmetica -> expressao_aritmetica . PLUS expressao_aritmetica
+    (76) expressao_aritmetica -> expressao_aritmetica . MINUS expressao_aritmetica
+
+    AND             reduce using rule 72 (expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica .)
+    OR              reduce using rule 72 (expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica .)
+    $end            reduce using rule 72 (expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica .)
+    RBRACE          reduce using rule 72 (expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica .)
+    RPAREN          reduce using rule 72 (expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica .)
+    SEMICOLON       reduce using rule 72 (expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica .)
+    RBRACKETS       reduce using rule 72 (expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica .)
+    COLON           reduce using rule 72 (expressao_relacional -> expressao_aritmetica NOT EQUAL expressao_aritmetica .)
+    PLUS            shift and go to state 110
+    MINUS           shift and go to state 111
+
+
+state 169
+
+    (85) expressao_postfix -> primaria LBRACKETS expression RBRACKETS .
+
+    TIMES           reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    DIVIDE          reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    MODULO          reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    MAIOR           reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    MENOR           reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    NOT             reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    EQUAL           reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    PLUS            reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    MINUS           reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    AND             reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    OR              reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    $end            reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    RBRACE          reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    RPAREN          reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    SEMICOLON       reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    RBRACKETS       reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+    COLON           reduce using rule 85 (expressao_postfix -> primaria LBRACKETS expression RBRACKETS .)
+
+
+state 170
+
+    (86) expressao_postfix -> primaria LPAREN argumentos RPAREN .
+
+    TIMES           reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    DIVIDE          reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    MODULO          reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    MAIOR           reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    MENOR           reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    NOT             reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    EQUAL           reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    PLUS            reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    MINUS           reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    AND             reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    OR              reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    $end            reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    RBRACE          reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    RPAREN          reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    SEMICOLON       reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    RBRACKETS       reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+    COLON           reduce using rule 86 (expressao_postfix -> primaria LPAREN argumentos RPAREN .)
+
+
+state 171
+
+    (61) array -> ID LBRACKETS . expression RBRACKETS
+    (62) array -> ID LBRACKETS . RBRACKETS
+    (31) expression -> . atribuicao
+    (32) atribuicao -> . ID EQUAL expressao_logica
+    (33) atribuicao -> . ID PLUS EQUAL expressao_logica
+    (34) atribuicao -> . ID MINUS EQUAL expressao_logica
+    (35) atribuicao -> . ID TIMES EQUAL expressao_logica
+    (36) atribuicao -> . ID DIVIDE EQUAL expressao_logica
+    (37) atribuicao -> . ID MODULO EQUAL expressao_logica
+    (38) atribuicao -> . ID AND EQUAL expressao_logica
+    (39) atribuicao -> . ID OR EQUAL expressao_logica
+
+    RBRACKETS       shift and go to state 176
+    ID              shift and go to state 38
+
+    expression                     shift and go to state 175
+    atribuicao                     shift and go to state 37
+
+state 172
+
+    (51) for_structure -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN . block
+    (28) block -> . LBRACE declaration RBRACE
+
+    LBRACE          shift and go to state 97
+
+    block                          shift and go to state 177
+
+state 173
+
+    (59) case_declaration -> CASE expression COLON . block
+    (28) block -> . LBRACE declaration RBRACE
+
+    LBRACE          shift and go to state 97
+
+    block                          shift and go to state 178
+
+state 174
+
+    (60) case_declaration -> DEFAULT COLON block .
+
+    CASE            reduce using rule 60 (case_declaration -> DEFAULT COLON block .)
+    DEFAULT         reduce using rule 60 (case_declaration -> DEFAULT COLON block .)
+    $end            reduce using rule 60 (case_declaration -> DEFAULT COLON block .)
+    RBRACE          reduce using rule 60 (case_declaration -> DEFAULT COLON block .)
+
+
+state 175
+
+    (61) array -> ID LBRACKETS expression . RBRACKETS
+
+    RBRACKETS       shift and go to state 179
+
+
+state 176
+
+    (62) array -> ID LBRACKETS RBRACKETS .
+
+    RPAREN          reduce using rule 62 (array -> ID LBRACKETS RBRACKETS .)
+
+
+state 177
+
+    (51) for_structure -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block .
+
+    $end            reduce using rule 51 (for_structure -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block .)
+    RBRACE          reduce using rule 51 (for_structure -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN block .)
+
+
+state 178
+
+    (59) case_declaration -> CASE expression COLON block .
+
+    CASE            reduce using rule 59 (case_declaration -> CASE expression COLON block .)
+    DEFAULT         reduce using rule 59 (case_declaration -> CASE expression COLON block .)
+    $end            reduce using rule 59 (case_declaration -> CASE expression COLON block .)
+    RBRACE          reduce using rule 59 (case_declaration -> CASE expression COLON block .)
+
+
+state 179
+
+    (61) array -> ID LBRACKETS expression RBRACKETS .
+
+    RPAREN          reduce using rule 61 (array -> ID LBRACKETS expression RBRACKETS .)
 

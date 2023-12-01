@@ -1,7 +1,6 @@
 import ply.lex as lex
 
-data = '''for i in range(5):
-            print(i)
+data = '''x = 5
 '''
 
 #ANALISADOR LEXICO
