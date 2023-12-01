@@ -1,12 +1,14 @@
 import ply.lex as lex
 
-data = '''x = 5
-'''
+data = '''def x(teste):
+            x = 5
+            return x'''
 
 #ANALISADOR LEXICO
 # Definindo os tokens
 
 reserved = {
+    'def': 'DEF',
     'int': 'INT',
     'double': 'DOUBLE',
     'float': 'FLOAT',
@@ -28,13 +30,15 @@ reserved = {
     'else' : 'ELSE',
     'while' : 'WHILE',
     'in': 'IN',
-    'range': 'RANGE'
+    'range': 'RANGE',
+    'public': 'PUBLIC',
+    'static': 'STATIC'
 
 }
 
 tokens = [
     # Palavras-chave
-    'VAR', 'CONST','TYPE', 'BEGIN',  'END', 'IF', 'THEN', 'ELSE', 'WHILE',  'OF', 'ARRAY', 'RECORD', 'FUNCTION', 'WRITE', 'READ', 'INTEGER', 'REAL', 
+    'VAR', 'CONST','TYPE', 'BEGIN',  'END', 'THEN',  'OF', 'ARRAY', 'RECORD', 'FUNCTION', 'WRITE', 'READ', 'INTEGER', 'REAL', 
     # Identificadores e literais
     'ID', 'NUMERO', 'VSTRING',
     # Operadores e pontuação
@@ -80,9 +84,7 @@ keywords = {
     'type': 'TYPE',
     'begin': 'BEGIN',
     'end': 'END',
-    'if': 'IF',
     'then': 'THEN',
-    'else': 'ELSE',
     'while': 'WHILE',   
     'of': 'OF',
     'array': 'ARRAY',
@@ -98,7 +100,7 @@ keywords = {
 # Expressões regulares para identificadores e palavras-chave
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9]*'
-    t.type = reserved.get(t.value, 'ID') #SE t.value está em keyword, o tipo do token é atualizado, se não o tipo do token é mantido como 'ID'.
+    t.type = reserved.get(t.value, 'ID') #SE t.value está em reserved, o tipo do token é atualizado, se não o tipo do token é mantido como 'ID'.
     return t
 
 # Expressões regulares para números
@@ -143,7 +145,6 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-
 # Cria o lexer
 lexer = lex.lex()
 
@@ -154,7 +155,7 @@ print('\n_____________ANALISADOR LEXICO____________\n\n')
 while True:
     tok = lexer.token()
     if not tok: 
-         break  # Fim dos tokens
+        break  # Fim dos tokens
     print(f'(Type, Value, Line) = ({tok.type}, {tok.value}, {tok.lineno})')
 
 print("print do lexico comentado")
