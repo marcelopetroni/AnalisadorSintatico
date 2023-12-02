@@ -1,8 +1,13 @@
 import ply.lex as lex
 
-data = '''def x(teste):
-            x = 5
-            return x'''
+data = '''valor = 15
+if valor > 10:
+    if valor == 0:
+        print("Valor eh maior que 10 e eh par")
+    else:
+        print("Valor eh maior que 10 e eh impar")
+else:
+    print("Valor nao eh maior que 10")'''
 
 #ANALISADOR LEXICO
 # Definindo os tokens
@@ -27,12 +32,17 @@ reserved = {
     'break': 'BREAK',
     'continue': 'CONTINUE',
     'if' : 'IF',
+    'elif': 'ELIF',
     'else' : 'ELSE',
     'while' : 'WHILE',
     'in': 'IN',
     'range': 'RANGE',
     'public': 'PUBLIC',
-    'static': 'STATIC'
+    'static': 'STATIC',
+    'and': 'AND',
+    'not': 'NOT',
+    'or': 'OR',
+    'print': 'PRINT'
 
 }
 
@@ -43,7 +53,7 @@ tokens = [
     'ID', 'NUMERO', 'VSTRING',
     # Operadores e pontuação
     'DOT','PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'ASSIGN', 'COLON', 'SEMICOLON', 'COMMA', 'LPAREN', 'RPAREN','LBRACKETS', 'RBRACKETS',
-    'GREATER', 'LESS', 'EQUAL', 'NOT', 'LBRACE', 'ELLIPSIS', 'RBRACE', 'AND', 'OR', 'MODULO', 'EMPTY', 'MAIOR', 'MENOR',
+    'EQUAL', 'LBRACE', 'ELLIPSIS', 'RBRACE', 'MODULO', 'EMPTY', 'MAIOR', 'MENOR',
     # Comentário
     'SINGLE_LINE_COMMENT',
     'MULTI_LINE_COMMENT',
@@ -63,12 +73,7 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACKETS = r'\['
 t_RBRACKETS = r'\]'
-t_GREATER = r'>'
-t_LESS = r'<'
 t_EQUAL = r'='
-t_NOT = r'!'
-t_AND = r'&&'
-t_OR = r'\|\|'
 t_MODULO = r'%'
 t_LBRACE = r'{'
 t_RBRACE = r'}'

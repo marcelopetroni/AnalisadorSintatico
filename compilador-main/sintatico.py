@@ -23,28 +23,18 @@ def p_declaration(p):
                 | declaration_function
                 | declaration_structure
                 | comment
-                | type
                 | NUMERO
                 | VSTRING
+                | ID
+                | type
                 | expression'''
     p[0] = ('DECLARATION', p[1])
 
 # 3º Regra: declaração de variavel
 def p_declaration_variable(p):
-    '''declaration_variable : type ID 
-                        | ID EQUAL NUMERO
-                        | ID EQUAL ID
-                        | ID EQUAL VSTRING
-                        | ID EQUAL expression
-                        | ID EQUAL EQUAL NUMERO
-                        | ID EQUAL EQUAL ID
-                        | ID EQUAL EQUAL VSTRING
+    '''declaration_variable : ID EQUAL expression
                         | ID EQUAL EQUAL expression
-                        | type ID EQUAL expression
-                        | type ID EQUAL NUMERO
-                        | type ID EQUAL ID
-                        | type ID EQUAL VSTRING
-                        | type ID EQUAL LPAREN expression RPAREN'''
+                        | ID EQUAL expression declaration'''
     if len(p) == 3:
         p[0] = ('DECLARATION_VARIABLE', p[1], p[2])
     elif len(p) == 4:
@@ -65,17 +55,19 @@ def p_type(p):
 
 # 4º Regra: declaração de função
 def p_declaration_function(p):
-    '''declaration_function : type ID LPAREN parameters RPAREN block expression
-                            | DEF ID LPAREN parameters RPAREN COLON expression
-                            | VOID ID LPAREN parameters RPAREN block expression
-                            | PUBLIC VOID ID LPAREN parameters RPAREN block expression
-                            | PUBLIC STATIC VOID ID LPAREN parameters RPAREN block expression'''
-    if len(p) == 7:
-        p[0] = ('DECLARATION_FUNCTION', p[1], p[2], p[3], p[4], p[5], p[6])
-    elif len(p) == 8:
-        p[0] = ('DECLARATION_FUNCTION', p[1], p[2],p[3], p[4], p[5], p[6], p[7])
+    '''declaration_function : DEF ID LPAREN parameters RPAREN COLON declaration
+                            | DEF ID LPAREN parameters RPAREN COLON declaration RETURN ID
+                            | DEF ID LPAREN parameters RPAREN COLON declaration RETURN NUMERO
+                            | DEF ID LPAREN parameters RPAREN COLON declaration RETURN VSTRING
+                            | DEF ID LPAREN parameters RPAREN COLON declaration RETURN expression'''
+    if len(p) == 8:
+        p[0] = ('DECLARATION_FUNCTION', p[1], p[2], p[3], p[4], p[5], p[6], p[7])
+    elif len(p) == 9:
+        p[0] = ('DECLARATION_FUNCTION', p[1], p[2],p[3], p[4], p[5], p[6], p[7], p[8])
+    elif len(p) == 10:
+        p[0] = ('DECLARATION_FUNCTION', p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9])
     else:
-        p[0] = ('DECLARATION_FUNCTION', p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
+        p[0] = ('DECLARATION_FUNCTION', p[1], p[2], p[3], p[4])
 
 # Regra auxiliar para parâmetros
 def p_parameters(p):
@@ -102,15 +94,6 @@ def p_parameter(p):
     elif len(p) == 4:
         p[0] = ('PARAMETER', p[1], p[2], p[3])
 
-# 6º Regra: Bloco
-def p_block(p):
-    '''block : LBRACE declaration RBRACE
-            | LBRACE RBRACE'''
-    if len(p) == 4:
-        p[0] = ('BLOCK', p[1], p[2], p[3])
-    else: 
-        p[0] = ('BLOCK', p[1], p[2])
-
 # 7º Regra: Comentário
 def p_comment(p):
     '''comment : SINGLE_LINE_COMMENT
@@ -124,15 +107,15 @@ def p_expression(p):
 
 # Regras para Atribuição
 def p_atribuicao(p):
-    '''atribuicao : ID EQUAL expressao_logica
+    '''atribuicao : expressao_logica
                 | ID PLUS EQUAL expressao_logica
                 | ID MINUS EQUAL expressao_logica
                 | ID TIMES EQUAL expressao_logica
                 | ID DIVIDE EQUAL expressao_logica
-                | ID MODULO EQUAL expressao_logica
-                | ID AND EQUAL expressao_logica
-                | ID OR EQUAL expressao_logica'''
-    if len(p) == 4:
+                | ID MODULO EQUAL expressao_logica'''
+    if len(p) == 2:
+        p[0] = ('ATRIBUICAO', p[1])
+    elif len(p) == 4: 
         p[0] = ('ATRIBUICAO', p[1], p[2], p[3])
     else: 
         p[0] = ('ATRIBUICAO', p[1], p[2], p[3], p[4])
@@ -145,27 +128,65 @@ def p_declaration_structure(p):
                         | switch_structure
                         | break_structure
                         | continue_structure
-                        | return_structure'''
+                        | return_structure
+                        | print_structure'''
     p[0] = p[1]
+
+# Regra print
+def p_print_structure(p):
+    '''print_structure : PRINT LPAREN VSTRING RPAREN
+                | PRINT LPAREN NUMERO RPAREN
+                | PRINT LPAREN ID RPAREN
+                | PRINT LPAREN expression RPAREN'''
+    p[0] = ('PRINT_STRUCTURE', p[1], p[2], p[3], p[4])
 
 # Regras para if
 def p_if_structure(p):
-    '''if_structure : IF expression COLON
-                    | ELSE expression COLON'''
-    p[0] = ('IF', p[1], p[2], p[3])
+    '''if_structure : IF expression COLON declaration
+                    | IF NOT expression COLON declaration
+                    | IF expression NOT IN expression COLON declaration
+                    | IF expression COLON declaration else_structure
+                    | IF NOT expression COLON declaration else_structure
+                    | IF expression NOT IN expression COLON declaration else_structure'''
+    if len(p) == 5:
+        p[0] = ('IF_STRUCTURE', p[1], p[2], p[3], p[4])
+    elif len(p) == 6: 
+        p[0] = ('IF_STRUCTURE', p[1], p[2], p[3], p[4], p[5])
+    elif len(p) == 7: 
+        p[0] = ('IF_STRUCTURE', p[1], p[2], p[3], p[4], p[5], p[6])
+    else:
+        p[0] = ('IF_STRUCTURE', p[1], p[2], p[3], p[4], p[5], p[6], p[7])
 
+def p_else_structure(p):
+    '''else_structure : ELIF expression COLON declaration
+                    | ELIF NOT expression COLON declaration
+                    | ELIF expression NOT IN expression COLON declaration
+                    | ELSE COLON declaration'''
+    if len(p) == 5:
+        p[0] = ('ELSE_STRUCTURE', p[1], p[2], p[3], p[4])
+    elif len(p) == 6: 
+        p[0] = ('ELSE_STRUCTURE', p[1], p[2], p[3], p[4], p[5])
+    elif len(p) == 8: 
+        p[0] = ('ELSE_STRUCTURE', p[1], p[2], p[3], p[4], p[5], p[6], p[7])
+    else:
+        p[0] = ('ELSE_STRUCTURE', p[1], p[2], p[3])
 
 # Regras para while
 def p_while_structure(p):
-    '''while_structure : WHILE expression COLON'''
+    '''while_structure : WHILE expression COLON declaration'''
     p[0] = ('WHILE', p[2], p[4])
 
 # Regras para for
 def p_for_structure(p):
-    '''for_structure : FOR ID IN ID COLON
-                    | FOR ID IN RANGE NUMERO COLON
-                    | FOR LPAREN expression SEMICOLON ID PLUS PLUS SEMICOLON '''
-    p[0] = ('FOR', p[2], p[4], p[6])
+    '''for_structure : FOR ID IN primaria COLON declaration
+                    | FOR ID IN RANGE LPAREN primaria RPAREN COLON declaration
+                    | FOR ID COMMA ID IN ID COLON declaration'''
+    if len(p) == 7: 
+        p[0] = ('FOR_STRUCTURE', p[1], p[2], p[3], p[4], p[5], p[6])
+    elif len(p) == 9:
+        p[0] = ('FOR_STRUCTURE', p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
+    else:
+        p[0] = ('FOR_STRUCTURE', p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9])
 
 # Regras para switch
 def p_switch_structure(p):
@@ -220,25 +241,25 @@ def p_array(p):
 # Expressão lógica
 def p_expressao_logica(p):
     '''expressao_logica : expressao_relacional
-                        | NOT expressao_relacional
-                        | expressao_logica AND expressao_relacional
-                        | expressao_logica OR expressao_relacional'''
+                        | NOT expressao_logica
+                        | expressao_logica AND expressao_logica
+                        | expressao_logica OR expressao_logica'''
     if len(p) == 2:
         p[0] = p[1]
     elif len(p) == 3:
-        p[0] = ('NOT', p[2])
+        p[0] = (p[1], p[2])
     else:
         p[0] = (p[1], p[2], p[3])
 
 # Expressão relacional
 def p_expressao_relacional(p):
     '''expressao_relacional : expressao_aritmetica
-                            | expressao_aritmetica MAIOR expressao_aritmetica
-                            | expressao_aritmetica MAIOR EQUAL expressao_aritmetica
-                            | expressao_aritmetica MENOR expressao_aritmetica
-                            | expressao_aritmetica MENOR EQUAL expressao_aritmetica
-                            | expressao_aritmetica NOT EQUAL expressao_aritmetica
-                            | expressao_aritmetica EQUAL EQUAL expressao_aritmetica'''
+                            | expressao_relacional MAIOR expressao_relacional
+                            | expressao_relacional MAIOR EQUAL expressao_relacional
+                            | expressao_relacional MENOR expressao_relacional
+                            | expressao_relacional MENOR EQUAL expressao_relacional
+                            | expressao_relacional NOT EQUAL expressao_relacional
+                            | expressao_relacional EQUAL EQUAL expressao_relacional'''
     if len(p) == 2:
         p[0] = p[1]
     elif len(p) == 4:
@@ -248,7 +269,7 @@ def p_expressao_relacional(p):
 
 # Expressão aritmetica
 def p_expressao_aritmetica(p):
-    '''expressao_aritmetica : expressao_multiplicativa 
+    '''expressao_aritmetica : expressao_multiplicativa
                             | expressao_aritmetica PLUS expressao_aritmetica
                             | expressao_aritmetica MINUS expressao_aritmetica'''
     if len(p) == 2:
@@ -258,7 +279,7 @@ def p_expressao_aritmetica(p):
 
 # Expressão multiplicativa
 def p_expressao_multiplicativa(p):
-    '''expressao_multiplicativa : expressao_unaria
+    '''expressao_multiplicativa : primaria
                                 | expressao_multiplicativa TIMES expressao_multiplicativa
                                 | expressao_multiplicativa DIVIDE expressao_multiplicativa
                                 | expressao_multiplicativa MODULO expressao_multiplicativa '''
@@ -266,40 +287,6 @@ def p_expressao_multiplicativa(p):
         p[0] = p[1]
     else:
         p[0] = (p[1], p[2], p[3])
-
-# Expressão unaria
-def p_expressao_unaria(p):
-    '''expressao_unaria : expressao_postfix
-                        | PLUS expressao_unaria
-                        | MINUS expressao_unaria'''
-    if len(p) == 2:
-        p[0] = p[1]
-    elif len(p) == 3:
-        p[0] = (p[1], p[2])
-    else: 
-        p[0] = (p[1], p[2], p[3])
-
-# Expressão postfix
-def p_expressao_postfix(p):
-    '''expressao_postfix : primaria
-                        | primaria LBRACKETS expression RBRACKETS
-                        | primaria LPAREN argumentos RPAREN
-                        | primaria DOT ID '''
-    if len(p) == 2:
-        p[0] = p[1]
-    elif len(p) == 4:
-        p[0] = (p[1])
-    else:
-        p[0] = (p[1], p[3])
-
-# Expressão argumentos
-def p_argumentos(p):
-    '''argumentos : array
-                | empty'''
-    if p[1] is not None:
-        p[0] = p[1]
-    else:
-        p[0] = []
 
 # Primaria
 def p_primaria(p):
