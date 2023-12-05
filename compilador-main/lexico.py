@@ -1,13 +1,9 @@
 import ply.lex as lex
 
-data = '''valor = 15
-if valor > 10:
-    if valor == 0:
-        print("Valor eh maior que 10 e eh par")
-    else:
-        print("Valor eh maior que 10 e eh impar")
-else:
-    print("Valor nao eh maior que 10")'''
+# PROJETO POR MARCELO NUNES E MATHEUS GARCIA
+data = '''def teste(num, num2):
+        media = num + num2 / 2
+        return media'''
 
 #ANALISADOR LEXICO
 # Definindo os tokens

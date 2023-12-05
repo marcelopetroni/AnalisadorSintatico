@@ -1,7 +1,7 @@
 import ply.yacc as yacc
 from lexico import *
 
-#ANALISADOR SINTATICO:
+# ANALISADOR SINTATICO: PROJETO POR MARCELO NUNES E MATHEUS GARCIA
 
 # Lista de tokens definida anteriormente
 # from lexer import tokens
@@ -27,7 +27,8 @@ def p_declaration(p):
                 | VSTRING
                 | ID
                 | type
-                | expression'''
+                | expression
+                | operacoes'''
     p[0] = ('DECLARATION', p[1])
 
 # 3º Regra: declaração de variavel
@@ -59,7 +60,8 @@ def p_declaration_function(p):
                             | DEF ID LPAREN parameters RPAREN COLON declaration RETURN ID
                             | DEF ID LPAREN parameters RPAREN COLON declaration RETURN NUMERO
                             | DEF ID LPAREN parameters RPAREN COLON declaration RETURN VSTRING
-                            | DEF ID LPAREN parameters RPAREN COLON declaration RETURN expression'''
+                            | DEF ID LPAREN parameters RPAREN COLON declaration RETURN expression
+                            | DEF ID LPAREN parameters RPAREN COLON ID EQUAL operacoes RETURN ID'''
     if len(p) == 8:
         p[0] = ('DECLARATION_FUNCTION', p[1], p[2], p[3], p[4], p[5], p[6], p[7])
     elif len(p) == 9:
@@ -67,7 +69,46 @@ def p_declaration_function(p):
     elif len(p) == 10:
         p[0] = ('DECLARATION_FUNCTION', p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9])
     else:
-        p[0] = ('DECLARATION_FUNCTION', p[1], p[2], p[3], p[4])
+        p[0] = ('DECLARATION_FUNCTION', p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11])
+
+# auxiliar operacoes
+def p_operacoes(p):
+    '''operacoes : ID PLUS ID
+            | ID MINUS ID
+            | ID DIVIDE ID
+            | ID TIMES ID
+            | ID MODULO ID
+            | NUMERO PLUS ID
+            | NUMERO MINUS ID
+            | NUMERO DIVIDE ID
+            | NUMERO TIMES ID
+            | NUMERO MODULO ID
+            | NUMERO PLUS NUMERO
+            | NUMERO MINUS NUMERO
+            | NUMERO DIVIDE NUMERO
+            | NUMERO TIMES NUMERO
+            | NUMERO MODULO NUMERO
+            | ID PLUS ID DIVIDE NUMERO
+            | LPAREN ID PLUS NUMERO RPAREN
+            | ID PLUS LPAREN NUMERO TIMES NUMERO RPAREN
+            | ID TIMES NUMERO MINUS LPAREN ID DIVIDE NUMERO RPAREN
+            | ID MODULO NUMERO TIMES ID PLUS NUMERO
+            | ID DIVIDE LPAREN NUMERO PLUS ID MINUS NUMERO RPAREN
+            | ID TIMES ID TIMES ID DIVIDE NUMERO PLUS NUMERO
+            | ID PLUS ID MODULO ID MINUS NUMERO
+            | ID MODULO ID TIMES NUMERO MINUS NUMERO
+            | NUMERO PLUS ID TIMES NUMERO DIVIDE ID
+            | ID MODULO ID PLUS ID DIVIDE NUMERO TIMES ID
+            | ID MODULO ID TIMES ID DIVIDE ID PLUS ID
+            | NUMERO TIMES ID MODULO NUMERO PLUS ID
+            | ID PLUS ID MODULO NUMERO TIMES ID DIVIDE NUMERO
+            | ID TIMES NUMERO DIVIDE ID MODULO ID PLUS ID
+            | ID PLUS NUMERO PLUS ID DIVIDE NUMERO TIMES ID MODULO NUMERO
+'''
+    if len(p) == 4:
+        p[0] = ('OPERACOES', p[1], p[2], p[3])
+    else: 
+        p[0] = ('OPERACOES', p[1], p[2], p[3], p[4], p[5])
 
 # Regra auxiliar para parâmetros
 def p_parameters(p):
